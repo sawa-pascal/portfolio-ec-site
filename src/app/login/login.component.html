@@ -1,0 +1,35 @@
+<div class="login">
+  <h1>ログイン</h1>
+  <form [formGroup]="myForm" (submit)="onSubmit()">
+    <p>メールアドレスを入力してください</p>
+    <input type="email" formControlName="email" />
+    @if (email.touched && email.errors?.['required']) {
+    <div class="error">メールアドレスが必要です</div>
+    } 
+    @if (email.touched && email.errors?.['email']) {
+    <div class="error">メールアドレスを入力してください</div>
+    }
+
+    <p>パスワードを入力してください</p>
+    <input type="password" formControlName="pass" />
+    @if (pass.touched && pass.errors?.['required']) {
+    <div class="error">パスワードが必要です</div>
+    } 
+    @if (pass.touched && pass.errors?.['minlength']) {
+    <div class="error">最低4文字を入力してください</div>
+    }
+
+    <br />
+    <button [disabled]="myForm.invalid" type="submit">ログイン</button>
+
+    <br />
+    <a [routerLink]="['/user-pass-viewer']" class="message"
+      >パスワードを忘れた、ログインできない方はこちら</a
+    >
+    <br />
+    <a [routerLink]="['/user-register']" class="message">新規会員登録はこちら</a>
+
+    <hr />
+    <p>{{ message }}</p>
+  </form>
+</div>

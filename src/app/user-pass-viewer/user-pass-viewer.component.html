@@ -1,0 +1,27 @@
+<div class="login">
+  <h1>パスワードを取得します</h1>
+  <form [formGroup]="myForm" (submit)="onSubmit()">
+    <p>メールアドレスを入力してください</p>
+    <input type="email" formControlName="email" />
+    @if (email.touched && email.errors?.['required']) {
+    <div class="error">メールアドレスが必要です</div>
+    } 
+    @if (email.touched && email.errors?.['email']) {
+    <div class="error">メールアドレスを入力してください</div>
+    }
+
+    <br />
+    <button [disabled]="myForm.invalid" type="submit">取得</button>
+
+    <hr />
+
+    @if (isSuccess) {
+    <p>あなたのパスワード： {{ password }}</p>
+    }@else {
+    <p>{{ message }}</p>
+    }
+
+    <br />
+    <a [routerLink]="['/login']">ログイン画面へ戻る</a>
+  </form>
+</div>

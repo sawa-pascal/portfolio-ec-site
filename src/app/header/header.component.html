@@ -1,0 +1,38 @@
+<header>
+  <a [routerLink]="['']">
+    <h1>MY EC SITE</h1>
+  </a>
+
+  <div class="search-items">
+    <input [formControl]="itemName" placeholder="ITEMS NAME" />
+    <button (click)="onClickedSearch()">SEARCH</button>
+  </div>
+
+  @if (getUserName() != '') {
+    <div class="user-menu" (mouseleave)="showDropdown = false">
+      <h3 class="user-name" (click)="showDropdown = !showDropdown">
+        name: {{ getUserName() }}
+      </h3>
+      @if (showDropdown) {
+        <ul class="dropdown-menu">
+          <li>
+            <a [routerLink]="['/order-list']" (click)="showDropdown = false">ORDERLIST</a>
+          </li>
+          <li>
+            <a [routerLink]="['/user-setting']" (click)="showDropdown = false">SETTINGS</a>
+          </li>
+          <li>
+            <a [routerLink]="['/change-password']" (click)="showDropdown = false">CHANGE PASSWORD</a>
+          </li>
+          <li>
+            <a href="#" (click)="signOut($event)" class="signout-link">SIGN OUT</a>
+          </li>
+        </ul>
+      }
+    </div>
+  } @else {
+    <button class="button fancy-button" (click)="login()">ログイン</button>
+  }
+
+  <a [routerLink]="['/cart']" class="button fancy-button"> CART </a>
+</header>

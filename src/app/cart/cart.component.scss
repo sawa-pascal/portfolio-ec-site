@@ -1,0 +1,153 @@
+/* 全体ラップ */
+.cart-container {
+  max-width: 1000px;
+  margin: 0px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 見出し */
+.cart-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* カートアイテムリスト */
+.cart-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* カード */
+.cart-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  img {
+    /* 
+      ここではimgタグ内のスタイルを指定しています。
+      - width: 画像の横幅を親要素内で100%に広げます。
+      - height: 180pxに固定し、カード部分の高さを整えます。
+      - object-fit: contain 画像が縦横比を保ちつつ、img枠内に収まるようにします（切り抜き・引き伸ばしなし）。
+      - aspect-ratio: 1/1 は画像表示枠を正方形とし、同じ形で見せます。
+      - display: block で画像下の余白バグを無くし、中央寄せ整列に貢献します。
+      - margin: 0 auto で左右中央寄せします。
+      - background: #f8f8f8 は画像が透明・見切れる場合の背景色です。
+    */
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    aspect-ratio: 1 / 1;
+    display: block;
+    margin: 0 auto;
+    background: #f8f8f8;
+  }
+
+  .card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .product-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .product-price {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .product-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #777;
+
+    button {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background-color: #4caf50;
+      color: #fff;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+
+    span {
+      min-width: 20px;
+      text-align: center;
+      display: inline-block;
+    }
+  }
+
+  .card-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .subtotal {
+      font-weight: 600;
+      color: #222;
+    }
+
+    button.remove {
+      background-color: #ff6b6b;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: #ff4c4c;
+      }
+    }
+  }
+}
+
+/* 合計金額 */
+.total {
+  text-align: right;
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .cart-items {
+    grid-template-columns: 1fr;
+  }
+
+  .total {
+    text-align: center;
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,67 @@
+.login {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+form {
+  width: 300px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+$buttonBackColor: #007bff;
+
+button {
+  font-size: 16px;
+  background-color: $buttonBackColor;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: lighten($buttonBackColor, 10%);
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  font-size: 0.75em;
+  color: red;
+}
+
+.message {
+  font-size: 11px;
+}

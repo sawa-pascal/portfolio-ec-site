@@ -1,0 +1,168 @@
+header {
+  width: 100%;
+  height: 68px;
+  background-color: #1976d2;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.1);
+}
+
+h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.search-items {
+  align-items: center; /* 高さ中心に揃える */
+  gap: 8px;
+  height: 32px; /* 高さを揃えやすくするため追加（必要に応じて調整） */
+}
+
+.search-items input {
+  flex: 1 1 120px;
+  padding: 7px 12px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  box-shadow: 0 1px 2px rgba(25,118,210,0.05);
+  outline: none;
+  height: 32px; /* 高さを合わせる */
+  background: #fff; /* 入力欄も白背景にする場合はこのまま、不要なら削除 */
+}
+
+.search-items button {
+  margin-left: 5px;
+  padding: 0 18px;
+  height: 32px; /* inputと高さ揃える */
+  border-radius: 4px;
+  border: none;
+  background: #fff; /* 背景を白に */
+  color: #1976d2;  /* テキスト色青系に */
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 1px 2px rgba(25,118,210,0.05);
+}
+.search-items button:hover {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+.fancy-button {
+  background-color: #fff;
+  color: #1976d2;
+  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.07);
+  transition: background 0.2s, color 0.2s;
+}
+.fancy-button:hover {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.fancy-button i.material-icons {
+  color: #1976d2;
+  padding-right: 4px;
+}
+
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-name {
+  color: #fff;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.user-name:hover, .user-name:active {
+  background: rgba(255,255,255,0.15);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  min-width: 180px;
+  background: #fff;
+  color: #1976d2;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(60,60,80,0.1);
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  z-index: 100;
+  font-weight: 500;
+}
+
+.dropdown-menu li {
+  width: 100%;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px 24px;
+  color: #1976d2;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+}
+.dropdown-menu a:hover,
+.dropdown-menu .signout-link:hover {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+
+.signout-link {
+  color: #f44336;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+  }
+  .search-items {
+    width: 100%;
+    margin: 8px 0;
+  }
+  .user-menu {
+    width: 100%;
+  }
+  .dropdown-menu {
+    right: 0;
+    left: unset;
+    min-width: 140px;
+  }
+}

@@ -1,0 +1,87 @@
+<div class="purchase-confirm">
+  <h1>Purchase Confirmation</h1>
+
+  <!-- カート商品一覧 -->
+  <section class="cart-list-section">
+    <h2>Cart Items</h2>
+    <table class="cart-items-table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price (each)</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if ((cartItems && cartItems.length > 0)) { @for (item of cartItems; track $index) {
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>&yen;{{ item.price | number : '1.0-0' }}</td>
+          <td>&yen;{{ item.price * item.quantity | number : '1.0-0' }}</td>
+        </tr>
+        } } @else {
+        <tr>
+          <td colspan="4" class="empty-message">Cart is empty.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 合計金額 -->
+  <section class="totals-section">
+    <p>
+      <strong>TOTAL:</strong>
+      &yen;{{ getTotal() | number : '1.0-0' }}
+    </p>
+    <p>
+      <strong>TOTAL WITH TAX (10%):</strong>
+      &yen;{{ getTotalWithTax() | number : '1.0-0' }}
+    </p>
+  </section>
+
+  <!-- 配送先住所 -->
+  <section class="address-section">
+    <h2>Shipping Address</h2>
+    <p>
+      {{ user?.address ? user?.address : 'No address registered.' }}
+    </p>
+  </section>
+
+  <!-- 支払方法選択と購入ボタン -->
+  <form [formGroup]="paymentForm" (ngSubmit)="onPurchase()">
+    <section class="payment-section">
+      <h2>Payment Method</h2>
+      <select
+        formControlName="paymentMethod"
+        [ngClass]="{
+          'has-error':
+            paymentForm.get('paymentMethod')?.touched && paymentForm.get('paymentMethod')?.invalid
+        }"
+      >
+        <option value="" disabled>Select a payment method</option>
+        @for (method of paymentMethods; track method.id) {
+        <option [value]="method.id">{{ method.name }}</option>
+        }
+      </select>
+      @if (paymentForm.get('paymentMethod')?.touched && paymentForm.get('paymentMethod')?.invalid) {
+      <div class="error-message">Please select a payment method.</div>
+      }
+    </section>
+
+    <section class="purchase-button-section">
+      <button
+        type="submit"
+        [disabled]="paymentForm.invalid || !(cartItems && cartItems.length > 0)"
+      >
+        PURCHASE
+      </button>
+    </section>
+
+    @if (message) {
+    <p class="error-message">{{ message }}</p>
+    }
+  </form>
+</div>

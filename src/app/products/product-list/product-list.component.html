@@ -1,0 +1,27 @@
+<div class="product-list-container">
+  <h2>🖊 文房具一覧</h2>
+
+  <!-- カテゴリーごとにループ -->
+  @for (category of getCategories(); track $index) {
+  <div class="category-section">
+    <h3 class="category-title">{{ category.name }}</h3>
+    <div class="product-grid">
+      <!-- このカテゴリー内の（検索該当する）商品に対してループ、新しいもの順で表示 -->
+      @for (product of getProductsByCategory(category.id); track $index) {
+      <div class="product-card" (click)="goToProductDetail(product.id)">
+        <img [src]="getImageUrl(product)" alt="{{ product.name }}" />
+        <div class="card-body">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-price">価格: ¥{{ product.price }}</div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- 商品がなければメッセージを表示 -->
+    @if (getProductsByCategory(category.id).length === 0) {
+    <div class="no-products">このカテゴリに該当する商品がありません</div>
+    }
+  </div>
+  }
+</div>

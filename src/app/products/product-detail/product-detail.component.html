@@ -1,0 +1,22 @@
+@if (product) {
+<div class="product-detail-container">
+  <div class="product-image-section">
+    <img [src]="getImageUrl(product)" [alt]="product.name" class="product-image" />
+  </div>
+  <div class="product-info-section">
+    <h2 class="product-name">{{ product.name }}</h2>
+    <div class="product-price">価格: ¥{{ product.price }}</div>
+    <div class="product-description">説明: {{ product.description }}</div>
+
+    <form (ngSubmit)="addToCart()">
+      <label for="quantity">数量:</label>
+      <select id="quantity" [(ngModel)]="quantity" name="quantity" required>
+        @for (qty of quantityOptions; track $index) {
+        <option [value]="qty">{{ qty }}</option>
+        }
+      </select>
+      <button type="submit" class="add-to-cart-button">ADD TO CART</button>
+    </form>
+  </div>
+</div>
+}

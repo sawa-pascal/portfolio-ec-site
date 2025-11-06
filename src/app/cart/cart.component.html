@@ -1,0 +1,38 @@
+<div class="cart-container">
+  <h2>🛒 カート内容</h2>
+
+  <div class="cart-items">
+    <!-- カート内商品一覧をセッションから取得し、商品情報を付与したitemsでループ -->
+    @if (items.length > 0) { @for (item of items; track $index) {
+    <div class="cart-card">
+      <img [src]="item.imageUrl" alt="{{ item.name }}" />
+      <div class="card-body">
+        <div class="product-name">{{ item.name }}</div>
+        <div class="product-price">価格: ¥{{ item.price }}</div>
+        <div class="product-quantity">
+          <label>
+            数量:
+            <input type="number" min="{{ getQuantityMin() }}" max="{{ getQuantityMax() }}"
+                   [formControl]="quantityMap[item.cart_item_id]" />
+          </label>
+        </div>
+        <div class="card-actions">
+          <div class="subtotal">小計: ¥{{ item.price * item.quantity }}</div>
+          <button class="remove" (click)="removeItem(item.cart_item_id)">REMOVE</button>
+        </div>
+      </div>
+    </div>
+    } } @else {
+    <div class="no-products">カートに商品がありません</div>
+    }
+  </div>
+
+  @if (items.length > 0) {
+  <div class="cart-footer">
+    <p class="total">
+      <strong>合計: ¥{{ total }}</strong>
+    </p>
+    <button class="proceed" (click)="onProceedToCheckout()">PROCEED TO CHECKOUT</button>
+  </div>
+  }
+</div>
