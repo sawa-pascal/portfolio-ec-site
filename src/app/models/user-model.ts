@@ -2,6 +2,8 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  password_hash: string;
+  hashed_password: string;
+  tel: string;
+  prefecture_id: number;
   address: string;
 }

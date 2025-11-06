@@ -37,4 +37,30 @@ export class HeaderComponent {
     this.router.navigate(['/']);
     this.showDropdown = false;
   }
+
+  onMenuChange($event: Event): void {
+    const selectElement = $event.target as HTMLSelectElement;
+    const value = selectElement.value;
+
+    switch (value) {
+      case 'order-list':
+        this.router.navigate(['/order-list']);
+        break;
+      case 'user-setting':
+        this.router.navigate(['/user-setting']);
+        break;
+      case 'change-password':
+        this.router.navigate(['/change-password']);
+        break;
+      case 'sign-out':
+        this.signOut($event);
+        break;
+      default:
+        // 選択肢が空か、予期しない値
+        break;
+    }
+
+    // select の値をクリアして、再度メニューを選択できるようにする
+    selectElement.selectedIndex = 0;
+  }
 }
