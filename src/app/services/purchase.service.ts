@@ -23,4 +23,11 @@ export class PurchaseService {
     };
     return this.http.post<any>(`${this.sharedValueService.getApiUrl()}sales/purchase.php`, body);
   }
+
+  requestGetPurchaseHistory(user_id: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.sharedValueService.getApiUrl()}sales/get_purchase_history.php`,
+      { user_id: user_id }
+    );
+  }
 }
