@@ -9,7 +9,15 @@ import { SharedValueService } from './shared-value.service';
 })
 export class UserService {
   // userId = 0; として未ログイン時に0で管理。
-  private user: User = { id: 0, name: '', email: '', password_hash: '', address: '' };
+  private user: User = {
+    id: 0,
+    name: '',
+    email: '',
+    hashed_password: '',
+    tel: '',
+    prefecture_id: 0,
+    address: '',
+  };
 
   constructor(private http: HttpClient, private sharedValueService: SharedValueService) {}
 
@@ -36,7 +44,15 @@ export class UserService {
   }
 
   resetUser() {
-    this.user = { id: 0, name: '', email: '', password_hash: '', address: '' };
+    this.user = {
+      id: 0,
+      name: '',
+      email: '',
+      hashed_password: '',
+      tel: '',
+      prefecture_id: 0,
+      address: '',
+    };
   }
 
   /**
@@ -76,6 +92,13 @@ export class UserService {
   private fetchUser(email: string, password: string): Observable<any> {
     return this.http.get(
       `${this.sharedValueService.getApiUrl()}/get_user.php?email=${email}&password=${password}`
+    );
+  }
+
+  requestUpdateUser(user: User): Observable<any> {
+    return this.http.post(
+      `${this.sharedValueService.getApiUrl()}/update_user.php`,
+      user
     );
   }
 }

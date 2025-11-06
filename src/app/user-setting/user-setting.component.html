@@ -1,1 +1,48 @@
-<p>user-setting.component works!</p>
+<div class="login">
+  <h1>ユーザー情報</h1>
+  <form [formGroup]="myForm" (submit)="onSubmit()">
+    <p>名前</p>
+    <input type="text" formControlName="name" />
+    @if (name.touched && name.errors?.['required']) {
+    <div class="error">名前が必要です</div>
+    }
+
+    <p>メールアドレス</p>
+    <input type="email" formControlName="email" />
+    @if (email.touched && email.errors?.['required']) {
+    <div class="error">メールアドレスが必要です</div>
+    } @if (email.touched && email.errors?.['email']) {
+    <div class="error">メールアドレスを入力してください</div>
+    }
+
+    <p>電話番号</p>
+    <input type="test" formControlName="tel" />
+    @if (tel.touched && tel.errors?.['required']) {
+    <div class="error">電話番号が必要です</div>
+    }
+
+    <p>都道府県</p>
+    <select formControlName="prefecturesDropDown">
+      @for (prefecture of getPrefectures(); track $index) {
+      <option [value]="prefecture.name" [selected]="prefecture.name === prefecturesDropDown.value">
+        {{ prefecture.name }}
+      </option>
+      }
+    </select>
+    @if (prefecturesDropDown.touched && prefecturesDropDown.errors?.['required']) {
+    <div class="error">都道府県の選択が必要です</div>
+    }
+
+    <p>住所</p>
+    <input type="test" formControlName="address" />
+    @if (address.touched && address.errors?.['required']) {
+    <div class="error">住所が必要です</div>
+    }
+
+    <br />
+    <button [disabled]="myForm.invalid" type="submit">更新</button>
+
+    <hr />
+    <p>{{ message }}</p>
+  </form>
+</div>
