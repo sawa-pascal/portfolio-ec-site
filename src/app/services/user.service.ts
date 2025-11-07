@@ -83,6 +83,10 @@ export class UserService {
     });
   }
 
+  updateUser(user: User) {
+    this.user = user;
+  }
+
   getUserPassword(email: string): Observable<any> {
     return this.http.get(
       `${this.sharedValueService.getApiUrl()}/get_user_password.php?email=${email}`
@@ -96,9 +100,13 @@ export class UserService {
   }
 
   requestUpdateUser(user: User): Observable<any> {
-    return this.http.post(
-      `${this.sharedValueService.getApiUrl()}/update_user.php`,
-      user
-    );
+    return this.http.post(`${this.sharedValueService.getApiUrl()}/update_user.php`, user);
+  }
+
+  requestChangePassword(id: number, newPass: string): Observable<any> {
+    return this.http.post(`${this.sharedValueService.getApiUrl()}users/change_user_password.php`, {
+      id: id,
+      newPassword: newPass,
+    });
   }
 }
