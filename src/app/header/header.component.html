@@ -3,25 +3,28 @@
     <h1>MY EC SITE</h1>
   </a>
 
+  <button class="button fancy-button" (click)="goTopPage()">トップ</button>
   <div class="search-items">
     <input [formControl]="itemName" placeholder="ITEMS NAME" />
     <button (click)="onClickedSearch()">SEARCH</button>
   </div>
 
   @if (getUserName() != '') {
-    <div class="user-menu">
-      <label>
-        <select (change)="onMenuChange($event)">
-          <option value="" disabled selected hidden class="user-name">▼ NAME: {{ getUserName() }}</option>
-          <option value="order-list">ORDERLIST</option>
-          <option value="user-setting">SETTINGS</option>
-          <option value="change-password">CHANGE PASSWORD</option>
-          <option value="sign-out">SIGN OUT</option>
-        </select>
-      </label>
-    </div>
+  <div class="user-menu">
+    <label>
+      <select (change)="onMenuChange($event)">
+        <option value="" disabled selected hidden class="user-name">
+          ▼ NAME: {{ getUserName() }}
+        </option>
+        <option value="order-list">ORDERLIST</option>
+        <option value="user-setting">SETTINGS</option>
+        <option value="change-password">CHANGE PASSWORD</option>
+        <option value="sign-out">SIGN OUT</option>
+      </select>
+    </label>
+  </div>
   } @else {
-    <button class="button fancy-button" (click)="login()">ログイン</button>
+  <button class="button fancy-button" (click)="login()">ログイン</button>
   }
 
   <a [routerLink]="['/cart']" class="button fancy-button"> CART </a>
