@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user-model';
 import { PurchaseService } from '../../services/purchase.service';
 import { PaymentService } from '../../services/payment.service';
+import { SharedValueService } from '../../services/shared-value.service';
 
 @Component({
   selector: 'app-purchase-confirm.component',
@@ -27,7 +28,8 @@ export class PurchaseConfirmComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private purchaseService: PurchaseService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private sharedValueService: SharedValueService
   ) {
     this.paymentForm = this.fb.group({
       paymentMethod: ['', Validators.required],
@@ -60,7 +62,7 @@ export class PurchaseConfirmComponent implements OnInit {
         if (res.success && Array.isArray(res.payments)) {
           this.paymentMethods = res.payments.map((p: any) => ({
             id: p.id,
-            name: p.name
+            name: p.name,
           }));
         } else {
           this.paymentMethods = [];
@@ -68,7 +70,7 @@ export class PurchaseConfirmComponent implements OnInit {
       },
       error: (err: any) => {
         this.paymentMethods = [];
-      }
+      },
     });
   }
 
@@ -96,8 +98,8 @@ export class PurchaseConfirmComponent implements OnInit {
       return;
     }
 
-    const item_ids: number[] = this.cartItems.map(item => item.id);
-    const quantities: number[] = this.cartItems.map(item => Number(item.quantity));
+    const item_ids: number[] = this.cartItems.map((item) => item.id);
+    const quantities: number[] = this.cartItems.map((item) => Number(item.quantity));
     const user_id = this.user.id;
 
     this.loading = true;
@@ -119,7 +121,11 @@ export class PurchaseConfirmComponent implements OnInit {
       error: (err: any) => {
         this.loading = false;
         this.message = err?.error?.message || '購入処理中にエラーが発生しました。';
-      }
+      },
     });
+  }
+
+  getItemImageUrl(imageUrl: string): string {
+    return this.sharedValueService.getImageUrl() + imageUrl;
   }
 }
