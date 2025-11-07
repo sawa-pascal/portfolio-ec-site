@@ -63,4 +63,8 @@ export class HeaderComponent {
     // select の値をクリアして、再度メニューを選択できるようにする
     selectElement.selectedIndex = 0;
   }
+
+  goTopPage(){
+    this.router.navigate(['']);
+  }
 }
