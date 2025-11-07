@@ -24,7 +24,7 @@
               @for (item of order.data; track $index) {
                           <tr>
                               <td>
-                                  <img [src]="getImageUrl(item)" alt="item.item_name" />
+                                  <img [src]="getImageUrl(item)" alt="{{ item.item_name }}" />
                               </td>
                               <td>{{ item.item_name }}</td>
                               <td>{{ item.price | currency : 'JPY' : 'symbol' : '1.0-0' }}</td>
