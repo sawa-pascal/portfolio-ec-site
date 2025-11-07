@@ -16,7 +16,7 @@
       <tbody>
         @if ((cartItems && cartItems.length > 0)) { @for (item of cartItems; track $index) {
         <tr>
-          <td><img [src]="getItemImageUrl(item.image_url)" alt="{{ item.item_name }}" /></td>
+          <td><img [src]="getItemImageUrl(item.image_url)" alt="{{ item.name }}" /></td>
           <td>{{ item.name }}</td>
           <td>&yen;{{ item.price | number : '1.0-0' }}</td>
           <td>{{ item.quantity }}</td>
