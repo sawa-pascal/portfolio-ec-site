@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
 import { PrefecturesService } from '../services/prefectures.service';
 import { Prefecture } from '../models/prefectures-model';
 
@@ -29,7 +28,6 @@ export class UserSettingComponent implements OnInit {
   });
   constructor(
     private userService: UserService,
-    private router: Router,
     private prefecturesService: PrefecturesService
   ) {}
 
@@ -75,6 +73,8 @@ export class UserSettingComponent implements OnInit {
       next: (res) => {
         if (res.success) {
           this.message = 'ユーザー情報を更新しました';
+
+          this.userService.updateUser(updateUser);
         } else {
           this.message = res.message || '更新に失敗しました';
         }
