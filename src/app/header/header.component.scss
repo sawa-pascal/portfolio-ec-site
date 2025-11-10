@@ -155,7 +155,7 @@ h1 {
   text-align: center;
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1080px) {
   header {
     flex-wrap: wrap;
     padding: 10px 8px;
@@ -178,7 +178,7 @@ h1 {
 
   .fancy-button{
     text-align: center;
-    margin: auto;
+    margin: 0px 10px;
   }
 }
 @media (max-width: 720px) {
