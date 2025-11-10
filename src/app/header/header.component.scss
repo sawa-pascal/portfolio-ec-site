@@ -1,13 +1,15 @@
 header {
   width: 100%;
-  height: 68px;
+  min-height: 68px;
   background-color: #1976d2;
   padding: 0 32px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.1);
+  gap: 0 16px;
+  text-align: center;
 }
 
 h1 {
@@ -16,39 +18,43 @@ h1 {
   font-size: 2.2rem;
   letter-spacing: 1px;
   font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .search-items {
-  align-items: center; /* 高さ中心に揃える */
+  display: flex;
+  align-items: center;
   gap: 8px;
-  height: 32px; /* 高さを揃えやすくするため追加（必要に応じて調整） */
+  height: 32px;
+  min-width: 0;
+  max-width: 400px;
 }
 
 .search-items input {
-  flex: 1 1 120px;
-  padding: 7px 12px;
+  margin: 0;
+  min-width: 0;
   border-radius: 4px;
   border: none;
   font-size: 1rem;
-  box-shadow: 0 1px 2px rgba(25,118,210,0.05);
   outline: none;
-  height: 32px; /* 高さを合わせる */
-  background: #fff; /* 入力欄も白背景にする場合はこのまま、不要なら削除 */
+  height: 100%;
+  background: #fff;
+  text-align: center;
 }
 
 .search-items button {
   margin-left: 5px;
   padding: 0 18px;
-  height: 32px; /* inputと高さ揃える */
+  height: 100%;
   border-radius: 4px;
   border: none;
-  background: #fff; /* 背景を白に */
-  color: #1976d2;  /* テキスト色青系に */
+  background: #fff;
+  color: #1976d2;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 1px 2px rgba(25,118,210,0.05);
+  text-align: center;
 }
 .search-items button:hover {
   background: #e3f2fd;
@@ -65,6 +71,7 @@ h1 {
   font-weight: 600;
   margin-left: 12px;
   cursor: pointer;
+  text-align: center;
 }
 
 .fancy-button {
@@ -72,6 +79,7 @@ h1 {
   color: #1976d2;
   box-shadow: 0 2px 4px rgba(25, 118, 210, 0.07);
   transition: background 0.2s, color 0.2s;
+  text-align: center;
 }
 .fancy-button:hover {
   background-color: #e3f2fd;
@@ -86,6 +94,8 @@ h1 {
 .user-menu {
   position: relative;
   display: inline-block;
+  text-align: center;
+  margin: 0;
 }
 
 .user-name {
@@ -98,39 +108,41 @@ h1 {
   padding: 4px 8px;
   border-radius: 4px;
   transition: background 0.2s;
+  text-align: center;
 }
 .user-name:hover, .user-name:active {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .dropdown-menu {
-  position: absolute;
-  top: 110%;
   right: 0;
-  min-width: 180px;
+  min-width: 140px;
   background: #fff;
   color: #1976d2;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(60,60,80,0.1);
+  box-shadow: 0 2px 8px rgba(60, 60, 80, 0.1);
   list-style: none;
   margin: 0;
   padding: 8px 0;
   z-index: 100;
   font-weight: 500;
+  text-align: center;
+
+  li {
+    width: 100%;
+  }
+
+  a {
+    display: block;
+    padding: 8px 24px;
+    color: #1976d2;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+    text-align: center;
+  }
 }
 
-.dropdown-menu li {
-  width: 100%;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 8px 24px;
-  color: #1976d2;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-  border: none;
-}
 .dropdown-menu a:hover,
 .dropdown-menu .signout-link:hover {
   background: #e3f2fd;
@@ -140,29 +152,80 @@ h1 {
 .signout-link {
   color: #f44336;
   font-weight: 600;
+  text-align: center;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1080px) {
   header {
-    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px 8px;
     height: auto;
-    padding: 8px 12px;
-    gap: 8px;
+    min-height: 60px;
+    gap: 8px 0;
+    justify-content: center;
+    text-align: center;
+  }
+  .search-items {
+    max-width: 100%;
+    flex: 1 1 100px;
+    justify-content: center;
+    text-align: center;
   }
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .fancy-button{
+    text-align: center;
+    margin: 0px 10px;
+  }
+}
+@media (max-width: 720px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 4vw;
+    gap: 8px 0;
+    text-align: center;
+    justify-content: center;
+  }
+  h1 {
+    font-size: 1.2rem;
     margin-bottom: 6px;
+    text-align: center;
   }
   .search-items {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     margin: 8px 0;
+    flex-direction: column;
+    height: auto;
+    gap: 6px;
+    justify-content: center;
+    text-align: center;
+  }
+  .search-items button,
+  .search-items input {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    text-align: center;
   }
   .user-menu {
     width: 100%;
+    text-align: center;
   }
   .dropdown-menu {
-    right: 0;
-    left: unset;
+    left: 0;
+    right: unset;
     min-width: 140px;
+    text-align: center;
+  }
+
+  .fancy-button{
+    text-align: center;
+    margin: auto;
   }
 }
