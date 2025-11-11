@@ -21,7 +21,7 @@
         </div>
         <div class="card-actions">
           <div class="subtotal">小計: ¥{{ item.price * item.quantity }}</div>
-          <button class="remove" (click)="removeItem(item.cart_item_id)">REMOVE</button>
+          <button class="remove" (click)="removeItem(item.cart_item_id)">削除</button>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
     <p class="total">
       <strong>合計: ¥{{ total }}</strong>
     </p>
-    <button class="proceed" (click)="onProceedToCheckout()">PROCEED TO CHECKOUT</button>
+    <button class="proceed" (click)="onProceedToCheckout()">購入する</button>
   </div>
   }
 </div>
