@@ -1,3 +1,6 @@
+
+$content-height: 32px;
+
 header {
   width: 100%;
   min-height: 68px;
@@ -10,23 +13,26 @@ header {
   box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.1);
   gap: 0 16px;
   text-align: center;
+  height: $content-height;
 }
 
 h1 {
   color: #fff;
   margin: 0;
-  font-size: 2.2rem;
+  font-size: $content-height;
   letter-spacing: 1px;
   font-weight: 700;
   white-space: nowrap;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 }
 
 .search-items {
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 32px;
+  gap: $content-height / 4;
+  height: $content-height;
   min-width: 0;
   max-width: 400px;
 }
@@ -36,17 +42,18 @@ h1 {
   min-width: 0;
   border-radius: 4px;
   border: none;
-  font-size: 1rem;
+  font-size: $content-height / 2;
   outline: none;
-  height: 100%;
+  height: $content-height;
   background: #fff;
   text-align: center;
+  line-height: $content-height;
 }
 
 .search-items button {
-  margin-left: 5px;
-  padding: 0 18px;
-  height: 100%;
+  margin-left: $content-height / 6;
+  padding: 0 $content-height / 1.777;
+  height: $content-height;
   border-radius: 4px;
   border: none;
   background: #fff;
@@ -55,6 +62,7 @@ h1 {
   letter-spacing: 1px;
   cursor: pointer;
   text-align: center;
+  line-height: $content-height;
 }
 .search-items button:hover {
   background: #e3f2fd;
@@ -64,14 +72,16 @@ h1 {
 .button {
   display: inline-flex;
   align-items: center;
-  padding: 8px 18px;
+  padding: ($content-height - 18px) $content-height / 1.777;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: $content-height / 2;
   font-weight: 600;
-  margin-left: 12px;
+  margin-left: $content-height / 2.666;
   cursor: pointer;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 }
 
 .fancy-button {
@@ -80,6 +90,8 @@ h1 {
   box-shadow: 0 2px 4px rgba(25, 118, 210, 0.07);
   transition: background 0.2s, color 0.2s;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 }
 .fancy-button:hover {
   background-color: #e3f2fd;
@@ -88,7 +100,9 @@ h1 {
 
 .fancy-button i.material-icons {
   color: #1976d2;
-  padding-right: 4px;
+  padding-right: $content-height / 8;
+  height: $content-height;
+  line-height: $content-height;
 }
 
 .user-menu {
@@ -96,19 +110,23 @@ h1 {
   display: inline-block;
   text-align: center;
   margin: 0;
+  height: $content-height;
+  line-height: $content-height;
 }
 
 .user-name {
   color: #fff;
   margin: 0;
-  font-size: 1.1rem;
+  font-size: $content-height / 1.5;
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  padding: 4px 8px;
+  padding: $content-height / 8 $content-height / 4;
   border-radius: 4px;
   transition: background 0.2s;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 }
 .user-name:hover, .user-name:active {
   background: rgba(255, 255, 255, 0.15);
@@ -116,30 +134,36 @@ h1 {
 
 .dropdown-menu {
   right: 0;
-  min-width: 140px;
+  min-width: $content-height * 4.375;
   background: #fff;
   color: #1976d2;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(60, 60, 80, 0.1);
   list-style: none;
   margin: 0;
-  padding: 8px 0;
+  padding: $content-height / 4 0;
   z-index: 100;
   font-weight: 500;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 
   li {
     width: 100%;
+    height: $content-height;
+    line-height: $content-height;
   }
 
   a {
     display: block;
-    padding: 8px 24px;
+    padding: $content-height / 4 $content-height * 0.75;
     color: #1976d2;
     text-decoration: none;
     transition: background 0.2s, color 0.2s;
     border: none;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
   }
 }
 
@@ -153,6 +177,8 @@ h1 {
   color: #f44336;
   font-weight: 600;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 }
 
 @media (max-width: 1080px) {
@@ -161,7 +187,7 @@ h1 {
     padding: 10px 8px;
     height: auto;
     min-height: 60px;
-    gap: 8px 0;
+    gap: $content-height / 4 0;
     justify-content: center;
     text-align: center;
   }
@@ -170,15 +196,20 @@ h1 {
     flex: 1 1 100px;
     justify-content: center;
     text-align: center;
+    height: $content-height;
   }
   h1 {
-    font-size: 1.6rem;
+    font-size: $content-height * 0.727;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
   }
 
   .fancy-button{
     text-align: center;
     margin: 0px 10px;
+    height: $content-height;
+    line-height: $content-height;
   }
 }
 @media (max-width: 720px) {
@@ -186,14 +217,18 @@ h1 {
     flex-direction: column;
     align-items: stretch;
     padding: 8px 4vw;
-    gap: 8px 0;
+    gap: $content-height / 4 0;
     text-align: center;
     justify-content: center;
+    height: auto;
+    min-height: unset;
   }
   h1 {
-    font-size: 1.2rem;
+    font-size: $content-height * 0.545;
     margin-bottom: 6px;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
   }
   .search-items {
     width: 100%;
@@ -202,7 +237,7 @@ h1 {
     margin: 8px 0;
     flex-direction: column;
     height: auto;
-    gap: 6px;
+    gap: $content-height / 5.33;
     justify-content: center;
     text-align: center;
   }
@@ -212,20 +247,28 @@ h1 {
     min-width: 0;
     margin-left: 0;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
   }
   .user-menu {
     width: 100%;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
   }
   .dropdown-menu {
     left: 0;
     right: unset;
-    min-width: 140px;
+    min-width: $content-height * 4.375;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
   }
 
   .fancy-button{
     text-align: center;
     margin: auto;
+    height: $content-height;
+    line-height: $content-height;
   }
 }
