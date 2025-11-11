@@ -3,10 +3,11 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { SharedValueService } from '../services/shared-value.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
