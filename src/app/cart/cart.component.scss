@@ -140,6 +140,44 @@
   color: #222;
 }
 
+.cart-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.proceed {
+  display: inline-block;
+  background-color: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 0.9em 1.5em;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.09);
+  letter-spacing: 0.04em;
+  transition: background 0.18s, box-shadow 0.15s;
+
+  margin: auto;
+  margin-right: 0;
+  margin-top: 16px;
+  
+  &:hover {
+    background-color: #1741a0;
+    box-shadow: 0 4px 18px rgba(37, 99, 235, 0.18);
+  }
+
+  &:disabled {
+    opacity: 0.58;
+    cursor: not-allowed;
+    background: #9db4eb;
+    color: #fff;
+    box-shadow: none;
+  }
+}
+
 /* レスポンシブ */
 @media (max-width: 768px) {
   .cart-items {
