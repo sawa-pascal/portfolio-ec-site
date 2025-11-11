@@ -1,199 +1,225 @@
+// ===============================
+// SCSSリファクタリング: 変数・mixin・ネスト等フル活用
+// ===============================
+
+// --- カラーパレット ---
+$clr-primary: #1976d2;
+$clr-primary-dark: #0d47a1;
+$clr-bg: #fff;
+$clr-bg-hover: #e3f2fd;
+$clr-signout: #f44336;
+
+// --- サイズ変数 ---
+$content-height: 32px;
+$font-size-base: 16px; // 基準となるfont-sizeを統一
+$font-size-title: 32px; // タイトル用
+$radius: 4px;
+
+// --- ミックスイン ---
+@mixin flex-center($gap: 0, $dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin transition($props...) {
+  transition: $props;
+}
+
+@mixin input-style($height: $content-height, $font-size: $font-size-base) {
+  border-radius: $radius;
+  border: none;
+  font-size: $font-size;
+  outline: none;
+  height: $height;
+  background: $clr-bg;
+  text-align: center;
+  line-height: $height;
+  min-width: 0;
+  margin: 0;
+}
+
+@mixin button-style($color: $clr-primary, $bg: $clr-bg, $font-size: $font-size-base) {
+  @include flex-center();
+  padding: 0 $content-height / 1.777;
+  border: none;
+  border-radius: $radius;
+  background: $bg;
+  color: $color;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: $font-size;
+  cursor: pointer;
+  text-align: center;
+  height: $content-height;
+  line-height: $content-height;
+  @include transition(background 0.2s, color 0.2s);
+}
+
+@mixin dropdown-item($color: $clr-primary, $font-size: $font-size-base) {
+  display: block;
+  padding: $content-height / 4 $content-height * 0.75;
+  color: $color;
+  text-decoration: none;
+  border: none;
+  text-align: center;
+  height: $content-height;
+  line-height: $content-height;
+  font-size: $font-size;
+  @include transition(background 0.2s, color 0.2s);
+}
+
+// --- Header ---
 header {
   width: 100%;
   min-height: 68px;
-  background-color: #1976d2;
+  background-color: $clr-primary;
   padding: 0 32px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.1);
-  gap: 0 16px;
+  @include flex-center(0 16px, row);
   text-align: center;
+  height: $content-height;
+  font-size: $font-size-base;
+
+  flex-wrap: wrap;
+  gap: $content-height / 4 0;
 }
 
+// --- Title Logo ---
 h1 {
   color: #fff;
   margin: 0;
-  font-size: 2.2rem;
+  font-size: $font-size-title;
   letter-spacing: 1px;
   font-weight: 700;
   white-space: nowrap;
   text-align: center;
+  height: $content-height;
+  line-height: $content-height;
 }
 
+// --- 検索バー ---
 .search-items {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 32px;
+  @include flex-center($content-height / 4);
+  height: $content-height;
   min-width: 0;
   max-width: 400px;
+  input {
+    @include input-style($content-height, $font-size-base);
+  }
+  button {
+    @include button-style($clr-primary, $clr-bg, $font-size-base);
+    margin-left: $content-height / 6;
+    &:hover {
+      background: $clr-bg-hover;
+      color: $clr-primary-dark;
+    }
+  }
+  font-size: $font-size-base;
+
+  max-width: 100%;
+  flex: 1 1 100px;
 }
 
-.search-items input {
-  margin: 0;
-  min-width: 0;
-  border-radius: 4px;
-  border: none;
-  font-size: 1rem;
-  outline: none;
-  height: 100%;
-  background: #fff;
-  text-align: center;
-}
-
-.search-items button {
-  margin-left: 5px;
-  padding: 0 18px;
-  height: 100%;
-  border-radius: 4px;
-  border: none;
-  background: #fff;
-  color: #1976d2;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  text-align: center;
-}
-.search-items button:hover {
-  background: #e3f2fd;
-  color: #0d47a1;
-}
-
+// --- ボタン共通 ---
 .button {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-left: 12px;
-  cursor: pointer;
-  text-align: center;
+  @include button-style($clr-primary, $clr-bg, $font-size-base);
+  margin-left: $content-height / 2.666;
 }
 
+// --- 装飾付きボタン ---
 .fancy-button {
-  background-color: #fff;
-  color: #1976d2;
-  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.07);
-  transition: background 0.2s, color 0.2s;
-  text-align: center;
-}
-.fancy-button:hover {
-  background-color: #e3f2fd;
-  color: #0d47a1;
+  @include button-style($clr-primary, $clr-bg, $font-size-base);
+  &.button {
+    // 継承（確実に.buttonと両立）
+  }
+  &:hover {
+    background-color: $clr-bg-hover;
+    color: $clr-primary-dark;
+  }
+  i.material-icons {
+    color: $clr-primary;
+    padding-right: $content-height / 8;
+    height: $content-height;
+    line-height: $content-height;
+    font-size: $font-size-base;
+  }
 }
 
-.fancy-button i.material-icons {
-  color: #1976d2;
-  padding-right: 4px;
-}
-
+// --- ユーザメニュー ---
 .user-menu {
   position: relative;
   display: inline-block;
   text-align: center;
   margin: 0;
-}
+  height: $content-height;
+  line-height: $content-height;
+  font-size: $font-size-base;
 
-.user-name {
-  color: #fff;
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  user-select: none;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background 0.2s;
-  text-align: center;
-}
-.user-name:hover, .user-name:active {
-  background: rgba(255, 255, 255, 0.15);
-}
+  // dropdown-menu: ネスト
+  .dropdown-menu {
+    right: 0;
+    min-width: $content-height * 3.5;
+    background: $clr-bg;
+    color: $clr-primary;
+    border-radius: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
 
-.dropdown-menu {
-  right: 0;
-  min-width: 140px;
-  background: #fff;
-  color: #1976d2;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(60, 60, 80, 0.1);
-  list-style: none;
-  margin: 0;
-  padding: 8px 0;
-  z-index: 100;
-  font-weight: 500;
-  text-align: center;
-
-  li {
-    width: 100%;
-  }
-
-  a {
-    display: block;
-    padding: 8px 24px;
-    color: #1976d2;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-    border: none;
     text-align: center;
+    height: $content-height;
+    line-height: $content-height;
+    font-weight: 600;
+    font-size: $font-size-base;
+
+    li {
+      width: 100%;
+      height: $content-height;
+      line-height: $content-height;
+      font-size: $font-size-base;
+    }
+    a {
+      @include dropdown-item($clr-primary, $font-size-base);
+      &:hover,
+      &.signout-link:hover {
+        background: $clr-bg-hover;
+        color: $clr-primary-dark;
+      }
+    }
+    .signout-link {
+      color: $clr-signout;
+      font-weight: 600;
+    }
   }
 }
 
-.dropdown-menu a:hover,
-.dropdown-menu .signout-link:hover {
-  background: #e3f2fd;
-  color: #0d47a1;
-}
-
-.signout-link {
-  color: #f44336;
-  font-weight: 600;
-  text-align: center;
-}
-
+// --- メディアクエリ ---
 @media (max-width: 1080px) {
-  header {
-    flex-wrap: wrap;
-    padding: 10px 8px;
-    height: auto;
-    min-height: 60px;
-    gap: 8px 0;
-    justify-content: center;
-    text-align: center;
-  }
-  .search-items {
-    max-width: 100%;
-    flex: 1 1 100px;
-    justify-content: center;
-    text-align: center;
-  }
   h1 {
-    font-size: 1.6rem;
-    text-align: center;
+    font-size: $font-size-title * 0.909;
   }
-
-  .fancy-button{
-    text-align: center;
+  .fancy-button {
     margin: 0px 10px;
+    font-size: $font-size-base;
   }
 }
-@media (max-width: 720px) {
+
+@media (max-width: 814px) {
   header {
     flex-direction: column;
     align-items: stretch;
     padding: 8px 4vw;
-    gap: 8px 0;
-    text-align: center;
-    justify-content: center;
+    gap: $content-height / 4 0;
+    height: auto;
+    min-height: unset;
+    font-size: $font-size-base;
   }
   h1 {
-    font-size: 1.2rem;
+    font-size: $font-size-title * 0.682;
     margin-bottom: 6px;
-    text-align: center;
   }
   .search-items {
     width: 100%;
@@ -202,30 +228,27 @@ h1 {
     margin: 8px 0;
     flex-direction: column;
     height: auto;
-    gap: 6px;
-    justify-content: center;
-    text-align: center;
-  }
-  .search-items button,
-  .search-items input {
-    width: 100%;
-    min-width: 0;
-    margin-left: 0;
-    text-align: center;
+    gap: $content-height / 5.33;
+    font-size: $font-size-base;
+    input,
+    button {
+      width: 100%;
+      min-width: 0;
+      margin-left: 0;
+      font-size: $font-size-base;
+    }
   }
   .user-menu {
     width: 100%;
-    text-align: center;
+    font-size: $font-size-base;
   }
   .dropdown-menu {
     left: 0;
     right: unset;
-    min-width: 140px;
-    text-align: center;
+    font-size: $font-size-base;
   }
-
-  .fancy-button{
-    text-align: center;
+  .fancy-button {
     margin: auto;
+    font-size: $font-size-base;
   }
 }
