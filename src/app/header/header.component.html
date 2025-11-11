@@ -13,8 +13,8 @@
   <div class="user-menu">
     <label>
       <select (change)="onMenuChange($event)" class="dropdown-menu">
-        <option value="" disabled selected hidden class="user-name">
-          NAME: {{ getUserName() }}
+        <option value="" disabled selected hidden>
+          {{ getUserName() }}
         </option>
         <option value="order-list">ORDERLIST</option>
         <option value="user-setting">SETTINGS</option>
