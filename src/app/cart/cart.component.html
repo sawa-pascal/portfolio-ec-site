@@ -12,8 +12,11 @@
         <div class="product-quantity">
           <label>
             数量:
-            <input type="number" min="{{ getQuantityMin() }}" max="{{ getQuantityMax() }}"
-                   [formControl]="quantityMap[item.cart_item_id]" />
+            <select [formControl]="quantityMap[item.cart_item_id]">
+              @for (n of quantityOptions;track $index) {
+              <option [value]="n">{{ n }}</option>
+              }
+            </select>
           </label>
         </div>
         <div class="card-actions">
