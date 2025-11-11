@@ -109,11 +109,10 @@ export class PurchaseConfirmComponent implements OnInit {
       next: (res: any) => {
         this.loading = false;
         if (res.success) {
-          // カートをクリア
-          sessionStorage.removeItem('cart_items');
-
           console.log(res.message + res.sale_id);
-          this.router.navigate(['/purchase-confirmed']);
+          this.router
+            .navigate(['/purchase-confirmed'])
+            .then(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
         } else {
           this.message = res.message || '購入に失敗しました。';
         }
@@ -123,6 +122,10 @@ export class PurchaseConfirmComponent implements OnInit {
         this.message = err?.error?.message || '購入処理中にエラーが発生しました。';
       },
     });
+  }
+
+  onCancel() {
+    this.router.navigate(['/cart']);
   }
 
   getItemImageUrl(imageUrl: string): string {

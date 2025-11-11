@@ -1,3 +1,49 @@
-<p>Thank you. The order has been confirmed!</p>
+<h2>購入処理が完了しました！</h2>
 
-<a [routerLink]="['']">TOP PAGE</a>
+<div class="confirm-container">
+  <h1 class="confirm-title">購入商品一覧</h1>
+
+  <!-- カート商品一覧 -->
+  <section class="order-summary">
+    <table class="cart-items-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>名前</th>
+          <th>価格</th>
+          <th>個数</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if ((cartItems && cartItems.length > 0)) { @for (item of cartItems; track $index) {
+        <tr>
+          <td><img [src]="getItemImageUrl(item.image_url)" alt="{{ item.name }}" /></td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price | currency:'JPY':'symbol':'1.0-0' }}</td>
+          <td>{{ item.quantity }}</td>
+        </tr>
+        } } @else {
+        <tr>
+          <td colspan="4" class="empty-message">Cart is empty.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 合計金額 -->
+  <section class="totals-section">
+    <div class="total-row">
+      <span><strong>合計金額:</strong></span>
+      <span>{{ getTotal() | currency:'JPY':'symbol':'1.0-0' }}</span>
+    </div>
+    <div class="total-row">
+      <span><strong>税込み合計金額:</strong></span>
+      <span>{{ getTotalWithTax() | currency:'JPY':'symbol':'1.0-0' }}</span>
+    </div>
+  </section>
+</div>
+
+<div>
+  <a [routerLink]="['']" class="to-top-link">トップページへ</a>
+</div>

@@ -13,6 +13,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class CartComponent implements OnInit {
   items: any[] = [];
   quantityMap: { [itemId: number]: FormControl } = {};
+  quantityOptions: number[] = [];
   total = 0;
 
   // セッションストレージのキー
@@ -27,6 +28,8 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     // セッションからカート情報を取得
     this.loadCartFromSession();
+
+    this.quantityOptions = Array.from({ length: this.getQuantityMax() - this.getQuantityMin() + 1 }, (_, i) => i + this.getQuantityMin());
 
     // quantityMapの初期化
     this.items.forEach((item) => {
