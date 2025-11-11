@@ -115,6 +115,8 @@ h1 {
       background: $clr-bg-hover;
       color: $clr-primary-dark;
     }
+
+    min-width: 40px;
   }
   font-size: $font-size-base;
 
@@ -204,6 +206,11 @@ h1 {
   .fancy-button {
     margin: 0px 10px;
     font-size: $font-size-base;
+  }
+
+  .search-items button{
+    line-height:1;
+    padding: 0;
   }
 }
 
