@@ -1,21 +1,91 @@
 
-$content-height: 32px;
+// ===============================
+// SCSSリファクタリング: 変数・mixin・ネスト等フル活用
+// ===============================
 
+// --- カラーパレット ---
+$clr-primary: #1976d2;
+$clr-primary-dark: #0d47a1;
+$clr-bg: #fff;
+$clr-bg-hover: #e3f2fd;
+$clr-signout: #f44336;
+$clr-shadow: rgba(25, 118, 210, 0.07);
+$clr-shadow-header: rgba(25, 118, 210, 0.1);
+$clr-dropdown-shadow: rgba(60, 60, 80, 0.1);
+
+// --- サイズ変数 ---
+$content-height: 32px;
+$radius: 4px;
+
+// --- ミックスイン ---
+@mixin flex-center($gap: 0, $dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin transition($props...) {
+  transition: $props;
+}
+
+@mixin input-style($height: $content-height, $font-size: $content-height / 2) {
+  border-radius: $radius;
+  border: none;
+  font-size: $font-size;
+  outline: none;
+  height: $height;
+  background: $clr-bg;
+  text-align: center;
+  line-height: $height;
+  min-width: 0;
+  margin: 0;
+}
+
+@mixin button-style($color: $clr-primary, $bg: $clr-bg, $shadow: $clr-shadow) {
+  @include flex-center();
+  padding: 0 $content-height / 1.777;
+  border: none;
+  border-radius: $radius;
+  background: $bg;
+  color: $color;
+  box-shadow: 0 2px 4px $shadow;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: $content-height / 2;
+  cursor: pointer;
+  text-align: center;
+  height: $content-height;
+  line-height: $content-height;
+  @include transition(background 0.2s, color 0.2s);
+}
+
+@mixin dropdown-item($color: $clr-primary) {
+  display: block;
+  padding: $content-height / 4 $content-height * 0.75;
+  color: $color;
+  text-decoration: none;
+  border: none;
+  text-align: center;
+  height: $content-height;
+  line-height: $content-height;
+  @include transition(background 0.2s, color 0.2s);
+}
+
+// --- Header ---
 header {
   width: 100%;
   min-height: 68px;
-  background-color: #1976d2;
+  background-color: $clr-primary;
   padding: 0 32px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.1);
-  gap: 0 16px;
+  @include flex-center(0 16px, row);
   text-align: center;
+  box-shadow: 0 2px 8px 0 $clr-shadow-header;
   height: $content-height;
 }
 
+// --- Title Logo ---
 h1 {
   color: #fff;
   margin: 0;
@@ -28,83 +98,50 @@ h1 {
   line-height: $content-height;
 }
 
+// --- 検索バー ---
 .search-items {
-  display: flex;
-  align-items: center;
-  gap: $content-height / 4;
+  @include flex-center($content-height / 4);
   height: $content-height;
   min-width: 0;
   max-width: 400px;
+  input {
+    @include input-style;
+  }
+  button {
+    @include button-style($clr-primary, $clr-bg, $clr-shadow);
+    margin-left: $content-height / 6;
+    &:hover {
+      background: $clr-bg-hover;
+      color: $clr-primary-dark;
+    }
+  }
 }
 
-.search-items input {
-  margin: 0;
-  min-width: 0;
-  border-radius: 4px;
-  border: none;
-  font-size: $content-height / 2;
-  outline: none;
-  height: $content-height;
-  background: #fff;
-  text-align: center;
-  line-height: $content-height;
-}
-
-.search-items button {
-  margin-left: $content-height / 6;
-  padding: 0 $content-height / 1.777;
-  height: $content-height;
-  border-radius: 4px;
-  border: none;
-  background: #fff;
-  color: #1976d2;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  text-align: center;
-  line-height: $content-height;
-}
-.search-items button:hover {
-  background: #e3f2fd;
-  color: #0d47a1;
-}
-
+// --- ボタン共通 ---
 .button {
-  display: inline-flex;
-  align-items: center;
-  padding: ($content-height - 18px) $content-height / 1.777;
-  border: none;
-  border-radius: 4px;
-  font-size: $content-height / 2;
-  font-weight: 600;
+  @include button-style();
   margin-left: $content-height / 2.666;
-  cursor: pointer;
-  text-align: center;
-  height: $content-height;
-  line-height: $content-height;
 }
 
+// --- 装飾付きボタン ---
 .fancy-button {
-  background-color: #fff;
-  color: #1976d2;
-  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.07);
-  transition: background 0.2s, color 0.2s;
-  text-align: center;
-  height: $content-height;
-  line-height: $content-height;
-}
-.fancy-button:hover {
-  background-color: #e3f2fd;
-  color: #0d47a1;
-}
-
-.fancy-button i.material-icons {
-  color: #1976d2;
-  padding-right: $content-height / 8;
-  height: $content-height;
-  line-height: $content-height;
+  @include button-style();
+  &.button {
+    // 継承（確実に.buttonと両立）
+  }
+  &:hover {
+    background-color: $clr-bg-hover;
+    color: $clr-primary-dark;
+  }
+  i.material-icons {
+    color: $clr-primary;
+    padding-right: $content-height / 8;
+    height: $content-height;
+    line-height: $content-height;
+  }
 }
 
+// --- ユーザメニュー ---
 .user-menu {
   position: relative;
   display: inline-block;
@@ -112,8 +149,42 @@ h1 {
   margin: 0;
   height: $content-height;
   line-height: $content-height;
+  // dropdown-menu: ネスト
+  .dropdown-menu {
+    right: 0;
+    min-width: $content-height * 4.375;
+    background: $clr-bg;
+    color: $clr-primary;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px $clr-dropdown-shadow;
+    list-style: none;
+    margin: 0;
+    padding: $content-height / 4 0;
+    z-index: 100;
+    font-weight: 500;
+    text-align: center;
+    height: $content-height;
+    line-height: $content-height;
+    li {
+      width: 100%;
+      height: $content-height;
+      line-height: $content-height;
+    }
+    a {
+      @include dropdown-item();
+      &:hover, &.signout-link:hover {
+        background: $clr-bg-hover;
+        color: $clr-primary-dark;
+      }
+    }
+    .signout-link {
+      color: $clr-signout;
+      font-weight: 600;
+    }
+  }
 }
 
+// --- ユーザー名表示 ---
 .user-name {
   color: #fff;
   margin: 0;
@@ -122,65 +193,17 @@ h1 {
   cursor: pointer;
   user-select: none;
   padding: $content-height / 8 $content-height / 4;
-  border-radius: 4px;
-  transition: background 0.2s;
+  border-radius: $radius;
+  @include transition(background 0.2s);
   text-align: center;
   height: $content-height;
   line-height: $content-height;
-}
-.user-name:hover, .user-name:active {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.dropdown-menu {
-  right: 0;
-  min-width: $content-height * 4.375;
-  background: #fff;
-  color: #1976d2;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(60, 60, 80, 0.1);
-  list-style: none;
-  margin: 0;
-  padding: $content-height / 4 0;
-  z-index: 100;
-  font-weight: 500;
-  text-align: center;
-  height: $content-height;
-  line-height: $content-height;
-
-  li {
-    width: 100%;
-    height: $content-height;
-    line-height: $content-height;
-  }
-
-  a {
-    display: block;
-    padding: $content-height / 4 $content-height * 0.75;
-    color: #1976d2;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-    border: none;
-    text-align: center;
-    height: $content-height;
-    line-height: $content-height;
+  &:hover, &:active {
+    background: rgba(255, 255, 255, 0.15);
   }
 }
 
-.dropdown-menu a:hover,
-.dropdown-menu .signout-link:hover {
-  background: #e3f2fd;
-  color: #0d47a1;
-}
-
-.signout-link {
-  color: #f44336;
-  font-weight: 600;
-  text-align: center;
-  height: $content-height;
-  line-height: $content-height;
-}
-
+// --- メディアクエリ ---
 @media (max-width: 1080px) {
   header {
     flex-wrap: wrap;
@@ -188,47 +211,32 @@ h1 {
     height: auto;
     min-height: 60px;
     gap: $content-height / 4 0;
-    justify-content: center;
-    text-align: center;
   }
   .search-items {
     max-width: 100%;
     flex: 1 1 100px;
-    justify-content: center;
-    text-align: center;
     height: $content-height;
   }
   h1 {
     font-size: $content-height * 0.727;
-    text-align: center;
-    height: $content-height;
-    line-height: $content-height;
   }
-
-  .fancy-button{
-    text-align: center;
+  .fancy-button {
     margin: 0px 10px;
-    height: $content-height;
-    line-height: $content-height;
   }
 }
+
 @media (max-width: 720px) {
   header {
     flex-direction: column;
     align-items: stretch;
     padding: 8px 4vw;
     gap: $content-height / 4 0;
-    text-align: center;
-    justify-content: center;
     height: auto;
     min-height: unset;
   }
   h1 {
     font-size: $content-height * 0.545;
     margin-bottom: 6px;
-    text-align: center;
-    height: $content-height;
-    line-height: $content-height;
   }
   .search-items {
     width: 100%;
@@ -238,37 +246,21 @@ h1 {
     flex-direction: column;
     height: auto;
     gap: $content-height / 5.33;
-    justify-content: center;
-    text-align: center;
-  }
-  .search-items button,
-  .search-items input {
-    width: 100%;
-    min-width: 0;
-    margin-left: 0;
-    text-align: center;
-    height: $content-height;
-    line-height: $content-height;
+    input,
+    button {
+      width: 100%;
+      min-width: 0;
+      margin-left: 0;
+    }
   }
   .user-menu {
     width: 100%;
-    text-align: center;
-    height: $content-height;
-    line-height: $content-height;
   }
   .dropdown-menu {
     left: 0;
     right: unset;
-    min-width: $content-height * 4.375;
-    text-align: center;
-    height: $content-height;
-    line-height: $content-height;
   }
-
-  .fancy-button{
-    text-align: center;
+  .fancy-button {
     margin: auto;
-    height: $content-height;
-    line-height: $content-height;
   }
 }
