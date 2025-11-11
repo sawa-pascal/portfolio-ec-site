@@ -1,16 +1,16 @@
 <div class="confirm-container">
-  <h1 class="confirm-title">Purchase Confirmation</h1>
+  <h1 class="confirm-title">購入確認</h1>
 
   <!-- カート商品一覧 -->
   <section class="order-summary">
-    <h2 class="section-title">Cart Items</h2>
+    <h2 class="section-title">カートの商品一覧</h2>
     <table class="cart-items-table">
       <thead>
         <tr>
           <th></th>
-          <th>NAME</th>
-          <th>PRICE</th>
-          <th>QUANTITY</th>
+          <th>名前</th>
+          <th>価格</th>
+          <th>個数</th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
         </tr>
         } } @else {
         <tr>
-          <td colspan="4" class="empty-message">Cart is empty.</td>
+          <td colspan="4" class="empty-message">カートが空です。</td>
         </tr>
         }
       </tbody>
@@ -33,27 +33,27 @@
   <!-- 合計金額 -->
   <section class="totals-section">
     <div class="total-row">
-      <span><strong>TOTAL:</strong></span>
+      <span><strong>合計金額:</strong></span>
       <span style="float: right">&yen;{{ getTotal() | number : '1.0-0' }}</span>
     </div>
     <div class="total-row">
-      <span><strong>TOTAL WITH TAX (10%):</strong></span>
+      <span><strong>税込み合計金額:</strong></span>
       <span style="float: right">&yen;{{ getTotalWithTax() | number : '1.0-0' }}</span>
     </div>
   </section>
 
   <!-- 配送先住所 -->
   <section class="address-section">
-    <h2 class="section-title">Shipping Address</h2>
+    <h2 class="section-title">配送先住所</h2>
     <p>
-      {{ user?.address ? user?.address : 'No address registered.' }}
+      {{ user?.address ? user?.address : '配送先住所が登録されていません' }}
     </p>
   </section>
 
   <!-- 支払方法選択と購入ボタン -->
   <form [formGroup]="paymentForm" (ngSubmit)="onPurchase()">
     <section class="payment-section">
-      <h2 class="section-title">Payment Method</h2>
+      <h2 class="section-title">支払方法</h2>
       <select
         formControlName="paymentMethod"
         [ngClass]="{
@@ -61,13 +61,13 @@
             paymentForm.get('paymentMethod')?.touched && paymentForm.get('paymentMethod')?.invalid
         }"
       >
-        <option value="" disabled>Select a payment method</option>
+        <option value="" disabled>支払方法を選択してください</option>
         @for (method of paymentMethods; track method.id) {
         <option [value]="method.id">{{ method.name }}</option>
         }
       </select>
       @if (paymentForm.get('paymentMethod')?.touched && paymentForm.get('paymentMethod')?.invalid) {
-      <div class="error-message">Please select a payment method.</div>
+      <div class="error-message">支払方法を選択してください</div>
       }
     </section>
 
@@ -77,10 +77,10 @@
         type="submit"
         [disabled]="paymentForm.invalid || !(cartItems && cartItems.length > 0)"
       >
-        PURCHASE
+        購入
       </button>
       
-      <button class="cancel-btn" type="button" (click)="onCancel()">CANCEL</button>
+      <button class="cancel-btn" type="button" (click)="onCancel()">やめる</button>
     </div>
 
     @if (message) {

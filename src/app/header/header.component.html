@@ -5,8 +5,8 @@
 
   <button class="button fancy-button" (click)="goTopPage()">トップ</button>
   <div class="search-items">
-    <input [formControl]="itemName" placeholder="ITEMS NAME" />
-    <button (click)="onClickedSearch()">SEARCH</button>
+    <input [formControl]="itemName" placeholder="名前" />
+    <button (click)="onClickedSearch()">検索</button>
   </div>
 
   @if (getUserName() != '') {
@@ -16,10 +16,10 @@
         <option value="" disabled selected hidden>
           {{ getUserName() }}
         </option>
-        <option value="order-list">ORDERLIST</option>
-        <option value="user-setting">SETTINGS</option>
-        <option value="change-password">CHANGE PASSWORD</option>
-        <option value="sign-out">SIGN OUT</option>
+        <option value="order-list">購入履歴</option>
+        <option value="user-setting">ユーザー設定</option>
+        <option value="change-password">パスワード変更</option>
+        <option value="sign-out">サインアウト</option>
       </select>
     </label>
   </div>
@@ -27,5 +27,5 @@
   <button class="button fancy-button" (click)="login()">ログイン</button>
   }
 
-  <a [routerLink]="['/cart']" class="button fancy-button"> CART </a>
+  <a [routerLink]="['/cart']" class="button fancy-button"> カート </a>
 </header>
