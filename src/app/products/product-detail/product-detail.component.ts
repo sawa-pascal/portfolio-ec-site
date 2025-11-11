@@ -4,11 +4,12 @@ import { ProductService } from '../../services/product.service';
 import { SharedValueService } from '../../services/shared-value.service';
 import { Item } from '../../models/items-model';
 import { FormsModule } from '@angular/forms';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CurrencyPipe],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss',
 })

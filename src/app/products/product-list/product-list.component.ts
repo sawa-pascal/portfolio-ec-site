@@ -6,10 +6,11 @@ import { SharedValueService } from '../../services/shared-value.service';
 import { Item } from '../../models/items-model';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/categories-model';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss',
 })

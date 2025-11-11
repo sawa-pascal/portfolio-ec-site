@@ -18,7 +18,7 @@
         <tr>
           <td><img [src]="getItemImageUrl(item.image_url)" alt="{{ item.name }}" /></td>
           <td>{{ item.name }}</td>
-          <td>&yen;{{ item.price | number : '1.0-0' }}</td>
+          <td>{{ item.price | currency : 'JPY' : 'symbol' : '1.0-0' }}</td>
           <td>{{ item.quantity }}</td>
         </tr>
         } } @else {
@@ -34,11 +34,11 @@
   <section class="totals-section">
     <div class="total-row">
       <span><strong>合計金額:</strong></span>
-      <span style="float: right">&yen;{{ getTotal() | number : '1.0-0' }}</span>
+      <span>{{ getTotal() | currency : 'JPY' : 'symbol' : '1.0-0' }}</span>
     </div>
     <div class="total-row">
       <span><strong>税込み合計金額:</strong></span>
-      <span style="float: right">&yen;{{ getTotalWithTax() | number : '1.0-0' }}</span>
+      <span>{{ getTotalWithTax() | currency : 'JPY' : 'symbol' : '1.0-0' }}</span>
     </div>
   </section>
 
@@ -79,7 +79,7 @@
       >
         購入
       </button>
-      
+
       <button class="cancel-btn" type="button" (click)="onCancel()">やめる</button>
     </div>
 
