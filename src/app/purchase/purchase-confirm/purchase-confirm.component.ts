@@ -125,6 +125,10 @@ export class PurchaseConfirmComponent implements OnInit {
     });
   }
 
+  onCancel() {
+    this.router.navigate(['/cart']);
+  }
+
   getItemImageUrl(imageUrl: string): string {
     return this.sharedValueService.getImageUrl() + imageUrl;
   }
