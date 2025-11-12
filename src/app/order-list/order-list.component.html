@@ -1,12 +1,15 @@
 <div>
   <h1>購入履歴</h1>
 
-  @if (purchaseHistory && purchaseHistory.length > 0) { 
-    @for (order of purchaseHistory; track order.data) {
+  @if (purchaseHistory && purchaseHistory.length > 0) { @for (order of purchaseHistory; track
+  order.data) {
   <div class="order-unit">
     <div>
       <p>SALE ID: {{ order.sale_id }}</p>
-      <p>日付: {{ order.date }}</p>
+
+      <p><strong>
+      日付: {{ order.date }}
+    </strong></p>
     </div>
 
     <table>
@@ -34,9 +37,15 @@
     </table>
 
     <div>
-      <p>合計金額: {{ calcTotal(order.data) | currency : 'JPY' : 'symbol' : '1.0-0' }}</p>
       <p>
-        税込み合計金額: {{ calcTotalWithTax(order.data) | currency : 'JPY' : 'symbol' : '1.0-0' }}
+        <strong>
+          合計金額: {{ calcTotal(order.data) | currency : 'JPY' : 'symbol' : '1.0-0' }}
+        </strong>
+      </p>
+      <p>
+        <strong>
+          税込み合計金額: {{ calcTotalWithTax(order.data) | currency : 'JPY' : 'symbol' : '1.0-0' }}
+        </strong>
       </p>
     </div>
   </div>
