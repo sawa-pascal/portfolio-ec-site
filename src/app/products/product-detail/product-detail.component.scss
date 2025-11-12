@@ -50,8 +50,6 @@
 
 .product-price {
   font-size: 1.25rem;
-  color: #377d22;
-  font-weight: 500;
 }
 
 .product-description {
@@ -85,7 +83,7 @@ select {
 }
 
 .add-to-cart-button {
-  background: #6b3cc9;
+  background: #2563eb;
   color: #fff;
   font-size: 1.1rem;
   padding: 12px 0;
@@ -97,7 +95,7 @@ select {
 }
 
 .add-to-cart-button:hover {
-  background: #5931a9;
+  background: #1741a0;
 }
 
 @media (max-width: 600px) {
