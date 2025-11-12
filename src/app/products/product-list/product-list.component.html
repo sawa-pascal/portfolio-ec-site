@@ -3,9 +3,9 @@
     <nav>
       <ul>
         @for (category of getCategories(); track $index) {
-          <li>
-            <a href="#{{ category.name }}">{{ category.name }}</a>
-          </li>
+        <li>
+          <a href="#{{ category.name }}">{{ category.name }}</a>
+        </li>
         }
       </ul>
     </nav>
@@ -13,10 +13,10 @@
 
   <div class="product-list-container">
     <h2>🖊 文房具一覧</h2>
-
     <!-- カテゴリーごとにループ -->
     @for (category of getCategories(); track $index) {
     <div class="category-section">
+      <hr />
       <h3 class="category-title" id="{{ category.name }}">{{ category.name }}</h3>
       <div class="product-grid">
         <!-- このカテゴリー内の（検索該当する）商品に対してループ、新しいもの順で表示 -->
@@ -25,7 +25,9 @@
           <img [src]="getImageUrl(product)" alt="{{ product.name }}" />
           <div class="card-body">
             <div class="product-name">{{ product.name }}</div>
-            <div class="product-price">価格: {{ product.price  | currency : 'JPY' : 'symbol' : '1.0-0' }}</div>
+            <div class="product-price">
+              価格: {{ product.price | currency : 'JPY' : 'symbol' : '1.0-0' }}
+            </div>
           </div>
         </div>
         }

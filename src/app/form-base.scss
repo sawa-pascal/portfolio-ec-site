@@ -1,0 +1,102 @@
+// カラーパレット変数
+$primary: #007bff;
+$primary-light: lighten($primary, 10%);
+$primary-dark: darken($primary, 10%);
+$background: #f0f0f0;
+$text-main: #333;
+$error: red;
+
+// 共通mixin
+@mixin flex-center($direction: column) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $direction;
+}
+
+@mixin form-container(
+  $width: 300px,
+  $bg: white,
+  $padding: 20px,
+  $radius: 5px,
+  $shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+) {
+  width: $width;
+  margin: 0 auto;
+  background-color: $bg;
+  padding: $padding;
+  border-radius: $radius;
+  box-shadow: $shadow;
+}
+
+@mixin button-base(
+  $size: 16px,
+  $bg: $primary,
+  $color: white,
+  $padding: 12px 20px,
+  $radius: 4px
+) {
+  font-size: $size;
+  background-color: $bg;
+  color: $color;
+  padding: $padding;
+  border: none;
+  border-radius: $radius;
+  cursor: pointer;
+}
+
+@mixin link-base($color: $primary) {
+  color: $color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin error-text($color: $error, $size: 0.75em) {
+  font-size: $size;
+  color: $color;
+}
+
+// ベーススタイル
+:host {
+  @include flex-center;
+  font-family: sans-serif;
+  background-color: $background;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+h1 {
+  color: $text-main;
+  margin-bottom: 30px;
+}
+
+form {
+  @include form-container();
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+button {
+  @include button-base();
+
+  &:hover {
+    background-color: $primary-dark;
+  }
+}
+
+a {
+  @include link-base();
+}
+
+.error {
+  @include error-text();
+}
+
+.message {
+  font-size: 11px;
+}

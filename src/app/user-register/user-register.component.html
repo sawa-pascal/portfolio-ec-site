@@ -16,13 +16,14 @@
     }
 
     <p>電話番号を入力してください</p>
-    <input type="test" formControlName="tel" />
+    <input type="text" formControlName="tel" />
     @if (tel.touched && tel.errors?.['required']) {
     <div class="error">電話番号が必要です</div>
     }
 
     <p>都道府県を選択してください</p>
     <select formControlName="prefecturesDropDown">
+      <option value="" hidden>都道府県を選択してください</option>
       @for (prefecture of getPrefectures(); track $index) {
       <option>{{ prefecture.name }}</option>
       }
@@ -32,7 +33,7 @@
     }
 
     <p>住所を入力してください</p>
-    <input type="test" formControlName="address" />
+    <input type="text" formControlName="address" />
     @if (address.touched && address.errors?.['required']) {
     <div class="error">住所が必要です</div>
     }

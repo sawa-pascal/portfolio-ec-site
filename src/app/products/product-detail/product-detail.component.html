@@ -5,7 +5,7 @@
   </div>
   <div class="product-info-section">
     <h2 class="product-name">{{ product.name }}</h2>
-    <div class="product-price">価格: {{ product.price | currency : 'JPY' : 'symbol' : '1.0-0'  }}</div>
+    <div class="product-price"><strong>価格: {{ product.price | currency : 'JPY' : 'symbol' : '1.0-0'  }}</strong></div>
     <div class="product-description">説明: {{ product.description }}</div>
 
     <form (ngSubmit)="addToCart()">
