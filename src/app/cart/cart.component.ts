@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
 import { SharedValueService } from '../services/shared-value.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
+import { NavigateService } from '../services/navigate.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
+    private navigateService: NavigateService,
     private sharedValueService: SharedValueService
   ) {}
 
@@ -30,7 +30,10 @@ export class CartComponent implements OnInit {
     // セッションからカート情報を取得
     this.loadCartFromSession();
 
-    this.quantityOptions = Array.from({ length: this.getQuantityMax() - this.getQuantityMin() + 1 }, (_, i) => i + this.getQuantityMin());
+    this.quantityOptions = Array.from(
+      { length: this.getQuantityMax() - this.getQuantityMin() + 1 },
+      (_, i) => i + this.getQuantityMin()
+    );
 
     // quantityMapの初期化
     this.items.forEach((item) => {
@@ -120,10 +123,14 @@ export class CartComponent implements OnInit {
     const userId = this.userService.getUser().id;
     // ログインしていない場合はログイン画面に飛ばす
     if (userId == 0) {
-      this.router.navigate(['/login']);
+      this.navigateService.toLogin();
       return;
     }
 
-    this.router.navigate(['/purchase-confirm']);
+    this.navigateService.toPurchaseConfirm();
+  }
+
+  returnTop() {
+    this.navigateService.toTopPage(this.sharedValueService.getSearchItemStr());
   }
 }

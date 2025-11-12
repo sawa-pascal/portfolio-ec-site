@@ -11,6 +11,8 @@ export class SharedValueService {
   // private imageUrl = '../images/';
   // private editImageUrl = '../tmp_image/';
 
+  private searchItemStr :string ='';
+
   getApiUrl(): string {
     return this.apiUrl;
   }
@@ -21,5 +23,13 @@ export class SharedValueService {
 
   getEditImageUrl(): string {
     return this.editImageUrl;
+  }
+
+  setSearchItemStr(str: string){
+    this.searchItemStr = str;
+  }
+
+  getSearchItemStr(): string{
+    return this.searchItemStr;
   }
 }

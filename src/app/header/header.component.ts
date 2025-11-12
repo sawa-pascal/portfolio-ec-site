@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SharedValueService } from '../services/shared-value.service';
+import { NavigateService } from '../services/navigate.service';
 
 @Component({
   selector: 'app-header',
@@ -12,21 +14,29 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class HeaderComponent {
   itemName = new FormControl('');
+
   showDropdown = false;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private navigateService: NavigateService,
+    private sharedValueService: SharedValueService
+  ) {
+    this.itemName.valueChanges.subscribe((value) => {
+      this.sharedValueService.setSearchItemStr(value ?? '');
+    });
+  }
 
   getUserName(): string {
     return this.userService.getUser().name;
   }
 
   login(): void {
-    this.router.navigate(['/login']);
+    this.navigateService.toLogin();
   }
 
   onClickedSearch(): void {
-    const name = this.itemName.value?.trim() || '';
-    this.router.navigate(['/product-list'], { queryParams: { search: name } });
+    this.navigateService.toTopPage(this.itemName.value);
   }
 
   signOut(event: Event): void {
@@ -34,7 +44,7 @@ export class HeaderComponent {
     // サインアウト処理（ユーザ情報クリア）
     // 必要に応じて追加
     this.userService.resetUser();
-    this.router.navigate(['/']);
+    this.onClickedSearch();
     this.showDropdown = false;
   }
 
@@ -44,13 +54,13 @@ export class HeaderComponent {
 
     switch (value) {
       case 'order-list':
-        this.router.navigate(['/order-list']);
+        this.navigateService.toOrderList();
         break;
       case 'user-setting':
-        this.router.navigate(['/user-setting']);
+        this.navigateService.toUserSetting();
         break;
       case 'change-password':
-        this.router.navigate(['/change-password']);
+        this.navigateService.toChangePassword();
         break;
       case 'sign-out':
         this.signOut($event);
@@ -64,7 +74,7 @@ export class HeaderComponent {
     selectElement.selectedIndex = 0;
   }
 
-  goTopPage(){
-    this.router.navigate(['']);
+  goTopPage() {
+    this.navigateService.toTopPage();
   }
 }
