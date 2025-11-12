@@ -23,6 +23,7 @@
 
     <p>都道府県を選択してください</p>
     <select formControlName="prefecturesDropDown">
+      <option value="" hidden>都道府県を選択してください</option>
       @for (prefecture of getPrefectures(); track $index) {
       <option>{{ prefecture.name }}</option>
       }
