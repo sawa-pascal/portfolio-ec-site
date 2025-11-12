@@ -1,4 +1,4 @@
-<div class="login">
+<div class="user-setting">
   <h1>ユーザー情報</h1>
   <form [formGroup]="myForm" (submit)="onSubmit()">
     <p>名前</p>
@@ -23,6 +23,7 @@
 
     <p>都道府県</p>
     <select formControlName="prefecturesDropDown">
+      <option value="" hidden>都道府県を選択してください</option>
       @for (prefecture of getPrefectures(); track $index) {
       <option [value]="prefecture.name" [selected]="prefecture.name === prefecturesDropDown.value">
         {{ prefecture.name }}
