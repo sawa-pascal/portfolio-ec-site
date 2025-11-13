@@ -136,8 +136,4 @@ export class CartComponent implements OnInit {
 
     this.navigateService.toPurchaseConfirm();
   }
-
-  returnTop() {
-    this.navigateService.toTopPage(this.sharedValueService.getSearchItemStr());
-  }
 }
