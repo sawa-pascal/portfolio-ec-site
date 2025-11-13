@@ -19,12 +19,23 @@
       <hr />
       <h3 class="category-title" id="{{ category.name }}">{{ category.name }}</h3>
       <div class="product-grid">
-        <!-- このカテゴリー内の（検索該当する）商品に対してループ、新しいもの順で表示 -->
         @for (product of getProductsByCategory(category.id); track $index) {
-        <div class="product-card" (click)="goToProductDetail(product.id)">
+        <div
+          class="product-card"
+          (click)="product.stock > 0 && goToProductDetail(product.id)"
+          [class.sold-out]="product.stock == 0"
+        >
           <img [src]="getImageUrl(product)" alt="{{ product.name }}" />
           <div class="card-body">
-            <div class="product-name">{{ product.name }}</div>
+            <div class="product-name">
+              {{ product.name }}
+              @if (product.stock == 0) {
+                <span class="sold-out-label">売り切れ</span>
+              }
+            </div>
+            <div class="product-stock">
+              在庫数: {{ product.stock }}
+            </div>
             <div class="product-price">
               価格: {{ product.price | currency : 'JPY' : 'symbol' : '1.0-0' }}
             </div>
@@ -33,7 +44,6 @@
         }
       </div>
 
-      <!-- 商品がなければメッセージを表示 -->
       @if (getProductsByCategory(category.id).length === 0) {
       <div class="no-products">このカテゴリに該当する商品がありません</div>
       }

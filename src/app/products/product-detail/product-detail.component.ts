@@ -23,21 +23,25 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private sharedValueService: SharedValueService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    const min = this.getQuantityMin();
-    const max = this.getQuantityMax();
-    this.quantityOptions = Array.from({ length: max - min + 1 }, (_, i) => i + min);
-
     this.route.paramMap.subscribe((params) => {
       const id = Number(params.get('id'));
       if (id) {
         this.productService.getProducts().subscribe({
           next: (res: any) => {
-            const items: Item[] = res.items;
+            const items: Item[] = (res.items as any[]).map((i) => ({
+              ...(i as Item),
+              stock: i.quantity,
+            }));
+
             this.product = items.find((item) => item.id == id) ?? null;
+
+            const min = this.getQuantityMin();
+            const max = this.getQuantityMax();
+            this.quantityOptions = Array.from({ length: max - min + 1 }, (_, i) => i + min);
           },
         });
       }
@@ -51,6 +55,10 @@ export class ProductDetailComponent implements OnInit {
 
   getQuantityMax(): number {
     // デフォルトの最大値
+    if (this.product) {
+      return this.product.stock < 20 ? this.product.stock : 20;
+    }
+
     return 20;
   }
 
@@ -87,6 +95,7 @@ export class ProductDetailComponent implements OnInit {
         quantity: this.quantity,
         subtotal: Number(this.product.price) * this.quantity,
         image_url: this.product.image_url,
+        stock: Number(this.product.stock),
       };
       items.push(cart_item);
     }

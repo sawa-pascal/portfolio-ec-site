@@ -61,7 +61,6 @@
     flex-direction: column;
     gap: 8px;
 
-
     height: 100%;
   }
 
@@ -71,7 +70,8 @@
     color: #333;
   }
 
-  .product-price {
+  .product-price,
+  .product-stock {
     font-size: 14px;
     color: #555;
   }
@@ -150,7 +150,8 @@
   align-items: center;
 }
 
-.return-top, .proceed {
+.return-top,
+.proceed {
   display: inline-block;
   background-color: #2563eb;
   color: #fff;

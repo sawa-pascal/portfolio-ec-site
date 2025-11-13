@@ -9,11 +9,12 @@
       <div class="card-body">
         <div class="product-name">{{ item.name }}</div>
         <div class="product-price">価格: {{ item.price | currency : 'JPY' : 'symbol' : '1.0-0' }}</div>
+        <div class="product-stock">在庫数: {{ item.stock }}</div>
         <div class="product-quantity">
           <label>
             数量:
             <select [formControl]="quantityMap[item.cart_item_id]">
-              @for (n of quantityOptions;track $index) {
+              @for (n of quantityOptions[item.cart_item_id];track $index) {
               <option [value]="n">{{ n }}</option>
               }
             </select>
