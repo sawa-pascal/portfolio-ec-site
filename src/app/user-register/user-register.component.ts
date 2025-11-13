@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
 import { PrefecturesService } from '../services/prefectures.service';
 import { Prefecture } from '../models/prefectures-model';
+import { NavigateService } from '../services/navigate.service';
 @Component({
   selector: 'app-user-register.component',
   imports: [ReactiveFormsModule],
@@ -22,7 +22,7 @@ export class UserRegisterComponent {
 
   constructor(
     private userService: UserService,
-    private router: Router,
+    private navigateService: NavigateService,
     private prefecturesService: PrefecturesService
   ) {}
   myForm: FormGroup = new FormGroup({
@@ -51,7 +51,7 @@ export class UserRegisterComponent {
       .subscribe({
         next: (res: any) => {
           if (res.success) {
-            this.router.navigate(['/login']);
+            this.navigateService.toLogin();
           } else {
             this.message = res.message;
           }

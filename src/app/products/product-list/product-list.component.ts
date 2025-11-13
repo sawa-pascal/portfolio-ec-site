@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedValueService } from '../../services/shared-value.service';
 import { Item } from '../../models/items-model';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/categories-model';
 import { CurrencyPipe } from '@angular/common';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,7 +23,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private router: Router,
+    private navigateService: NavigateService,
     private sharedValueService: SharedValueService,
     private categoriesService: CategoriesService,
     private route: ActivatedRoute
@@ -67,6 +68,6 @@ export class ProductListComponent implements OnInit {
   }
 
   goToProductDetail(product_id: number) {
-    this.router.navigate(['/product-detail', product_id]);
+    this.navigateService.toProductDetail(product_id);
   }
 }

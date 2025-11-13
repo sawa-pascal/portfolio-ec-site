@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { RouterLink } from "@angular/router";
+import { NavigateService } from '../services/navigate.service';
 
 @Component({
   selector: 'app-user-pass-viewer.component',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-pass-viewer.component.html',
   styleUrl: './user-pass-viewer.component.scss',
 })
@@ -20,7 +20,7 @@ export class UserPassViewerComponent {
     email: this.email,
   });
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private navigateService: NavigateService) {}
 
   onSubmit() {
     this.userService.getUserPassword(this.email.value).subscribe((res) => {
@@ -32,5 +32,9 @@ export class UserPassViewerComponent {
         this.isSuccess = false;
       }
     });
+  }
+
+  toLogin() {
+    this.navigateService.toLogin();
   }
 }

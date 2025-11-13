@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { NavigateService } from '../services/navigate.service';
 
 @Component({
   selector: 'app-login.component',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -15,7 +15,7 @@ export class LoginComponent {
 
   message: string = '';
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private navigateService: NavigateService) {}
 
   myForm: FormGroup = new FormGroup({
     email: this.email,
@@ -29,7 +29,7 @@ export class LoginComponent {
           console.log(res);
 
           // ログインできたら最初のページに飛ばす
-          this.router.navigate(['']);
+          this.navigateService.toLogin();
         } else {
           console.log(res);
           this.message = res.message;
@@ -39,5 +39,13 @@ export class LoginComponent {
         this.message = '通信エラー';
       },
     });
+  }
+
+  toUserRegister() {
+    this.navigateService.toUserRegister();
+  }
+
+  toUserPassViewer() {
+    this.navigateService.toUserPassViewer();
   }
 }

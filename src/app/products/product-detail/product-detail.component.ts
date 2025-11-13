@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { SharedValueService } from '../../services/shared-value.service';
 import { Item } from '../../models/items-model';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -23,7 +24,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private sharedValueService: SharedValueService,
-    private router: Router
+    private navigateService: NavigateService
   ) {}
 
   ngOnInit() {
@@ -101,7 +102,7 @@ export class ProductDetailComponent implements OnInit {
     }
 
     sessionStorage.setItem(this.CART_SESSION_KEY, JSON.stringify(items));
-    // alert(`${this.product?.name} を ${this.quantity} 個カートに追加しました`);
-    this.router.navigate(['./cart']);
+
+    this.navigateService.toCart();
   }
 }

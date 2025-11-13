@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user-model';
 import { PurchaseService } from '../../services/purchase.service';
 import { PaymentService } from '../../services/payment.service';
 import { SharedValueService } from '../../services/shared-value.service';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
   selector: 'app-purchase-confirm.component',
@@ -26,10 +26,10 @@ export class PurchaseConfirmComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router,
     private purchaseService: PurchaseService,
     private paymentService: PaymentService,
-    private sharedValueService: SharedValueService
+    private sharedValueService: SharedValueService,
+    private navigateService: NavigateService
   ) {
     this.paymentForm = this.fb.group({
       paymentMethod: ['', Validators.required],
@@ -110,9 +110,8 @@ export class PurchaseConfirmComponent implements OnInit {
         this.loading = false;
         if (res.success) {
           console.log(res.message + res.sale_id);
-          this.router
-            .navigate(['/purchase-confirmed'])
-            .then(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+          this.navigateService.toPurchaseConfirmed();
+
         } else {
           this.message = res.message || '購入に失敗しました。';
         }
@@ -125,7 +124,7 @@ export class PurchaseConfirmComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/cart']);
+    this.navigateService.toCart();
   }
 
   getItemImageUrl(imageUrl: string): string {

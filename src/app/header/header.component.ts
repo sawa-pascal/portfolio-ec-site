@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SharedValueService } from '../services/shared-value.service';
@@ -8,7 +7,7 @@ import { NavigateService } from '../services/navigate.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
@@ -76,5 +75,9 @@ export class HeaderComponent {
 
   goTopPage() {
     this.navigateService.toTopPage();
+  }
+
+  toCart() {
+    this.navigateService.toCart();
   }
 }

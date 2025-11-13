@@ -21,8 +21,30 @@ export class NavigateService {
     this.router.navigate(['/login']);
   }
 
+  toUserRegister() {
+    this.router.navigate(['/user-register']);
+  }
+
+  toUserPassViewer() {
+    this.router.navigate(['/user-pass-viewer']);
+  }
+
+  toProductDetail(product_id: number) {
+    this.router.navigate(['/product-detail', product_id]);
+  }
+
+  toCart() {
+    this.router.navigate(['/cart']);
+  }
+
   toPurchaseConfirm() {
     this.router.navigate(['/purchase-confirm']);
+  }
+
+  toPurchaseConfirmed() {
+    this.router
+      .navigate(['/purchase-confirmed'])
+      .then(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
   toOrderList() {
