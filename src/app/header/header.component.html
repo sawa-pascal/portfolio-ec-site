@@ -1,5 +1,5 @@
 <header>
-  <a [routerLink]="['']">
+  <a (click)="goTopPage()">
     <h1>MY EC SITE</h1>
   </a>
 
@@ -25,5 +25,5 @@
   <button class="button fancy-button" (click)="login()">ログイン</button>
   }
 
-  <a [routerLink]="['/cart']" class="button fancy-button"> カート </a>
+  <button class="button fancy-button" (click)="toCart()">カート</button>
 </header>

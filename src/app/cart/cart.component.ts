@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   constructor(
     private userService: UserService,
     private navigateService: NavigateService,
-    private sharedValueService: SharedValueService
+    private sharedValueService: SharedValueService,
   ) {}
 
   ngOnInit() {
@@ -32,7 +32,6 @@ export class CartComponent implements OnInit {
 
     // 各商品の最大数量分の選択肢を作成（商品ごとに異なる在庫考慮）
     this.items.forEach((item) => {
-
       console.log(item);
       // 商品ごとの最大選択可能数: 在庫が20未満なら在庫まで、20超の場合は20まで
       const min = this.getQuantityMin();
@@ -72,7 +71,6 @@ export class CartComponent implements OnInit {
         }
       });
     });
-
 
     this.updateTotal();
   }

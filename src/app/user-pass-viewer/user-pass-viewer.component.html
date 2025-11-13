@@ -5,8 +5,7 @@
     <input type="email" formControlName="email" />
     @if (email.touched && email.errors?.['required']) {
     <div class="error">メールアドレスが必要です</div>
-    } 
-    @if (email.touched && email.errors?.['email']) {
+    } @if (email.touched && email.errors?.['email']) {
     <div class="error">メールアドレスを入力してください</div>
     }
 
@@ -22,6 +21,6 @@
     }
 
     <br />
-    <a [routerLink]="['/login']">ログイン画面へ戻る</a>
+    <a (click)="toLogin()">ログイン画面へ戻る</a>
   </form>
 </div>
