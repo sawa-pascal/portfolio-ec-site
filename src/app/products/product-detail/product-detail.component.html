@@ -7,7 +7,7 @@
     <h2 class="product-name">{{ product.name }}</h2>
     <div class="product-price"><strong>価格: {{ product.price | currency : 'JPY' : 'symbol' : '1.0-0'  }}</strong></div>
     <div class="product-description">説明: {{ product.description }}</div>
-
+    <div class="product-stock">在庫数: {{ product.stock }}</div>
     <form (ngSubmit)="addToCart()">
       <label for="quantity">数量:</label>
       <select id="quantity" [(ngModel)]="quantity" name="quantity" required>

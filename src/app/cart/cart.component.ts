@@ -14,7 +14,7 @@ import { NavigateService } from '../services/navigate.service';
 export class CartComponent implements OnInit {
   items: any[] = [];
   quantityMap: { [itemId: number]: FormControl } = {};
-  quantityOptions: number[] = [];
+  quantityOptions: { [itemId: number]: number[] } = {};
   total = 0;
 
   // セッションストレージのキー
@@ -30,29 +30,35 @@ export class CartComponent implements OnInit {
     // セッションからカート情報を取得
     this.loadCartFromSession();
 
-    this.quantityOptions = Array.from(
-      { length: this.getQuantityMax() - this.getQuantityMin() + 1 },
-      (_, i) => i + this.getQuantityMin()
-    );
-
-    // quantityMapの初期化
+    // 各商品の最大数量分の選択肢を作成（商品ごとに異なる在庫考慮）
     this.items.forEach((item) => {
+
+      console.log(item);
+      // 商品ごとの最大選択可能数: 在庫が20未満なら在庫まで、20超の場合は20まで
+      const min = this.getQuantityMin();
+      const max = Math.min(Number(item.stock), this.getQuantityMax());
+      this.quantityOptions[item.cart_item_id] = Array.from(
+        { length: max - min + 1 },
+        (_, i) => i + min
+      );
+
       this.quantityMap[item.cart_item_id] = new FormControl(Number(item.quantity));
 
-      // valueChangesの購読（数量が変更されたとき、セッションに反映し、バリデーションも行う）
+      // valueChangesの購読（数量が変更されたとき、セッションに反映・バリデーションも）
       this.quantityMap[item.cart_item_id].valueChanges.subscribe((value: number) => {
         if (value == null) {
           return;
         }
-        const min = this.getQuantityMin();
-        const max = this.getQuantityMax();
+        const itemMin = this.getQuantityMin();
+        // 再取得（在庫変動の可能性に備える）: 最大は今のstock, 20の小さい方
+        const itemMax = Math.min(Number(item.stock), this.getQuantityMax());
 
-        if (value < min) {
-          this.quantityMap[item.cart_item_id].setValue(min, { emitEvent: false });
+        if (value < itemMin) {
+          this.quantityMap[item.cart_item_id].setValue(itemMin, { emitEvent: false });
           return;
         }
-        if (value > max) {
-          this.quantityMap[item.cart_item_id].setValue(max, { emitEvent: false });
+        if (value > itemMax) {
+          this.quantityMap[item.cart_item_id].setValue(itemMax, { emitEvent: false });
           return;
         }
 
@@ -66,6 +72,7 @@ export class CartComponent implements OnInit {
         }
       });
     });
+
 
     this.updateTotal();
   }
@@ -86,6 +93,7 @@ export class CartComponent implements OnInit {
         quantity: Number(item.quantity),
         subtotal: Number(item.price) * Number(item.quantity),
         imageUrl: this.getImageUrl(item),
+        stock: Number(item.stock),
       }));
     } else {
       this.items = [];
@@ -111,6 +119,7 @@ export class CartComponent implements OnInit {
     this.items = this.items.filter((i) => i.cart_item_id !== id);
     // quantityMapからも削除
     delete this.quantityMap[id];
+    delete this.quantityOptions[id];
     this.saveCartToSession();
     this.updateTotal();
   }

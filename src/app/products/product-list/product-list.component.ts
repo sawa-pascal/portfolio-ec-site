@@ -35,7 +35,10 @@ export class ProductListComponent implements OnInit {
 
       this.productService.getProducts().subscribe({
         next: (res: any) => {
-          this.products = res.items as Item[];
+          this.products = (res.items as any[]).map((i) => ({
+            ...(i as Item),
+            stock: i.quantity,
+          }));
           // 検索キーワードによるあいまい検索
           if (this.searchKeyword) {
             // 名前 または 説明文 に含まれる（大文字小文字区別なし）
