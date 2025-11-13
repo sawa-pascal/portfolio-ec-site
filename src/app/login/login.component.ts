@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { NavigateService } from '../services/navigate.service';
@@ -9,18 +9,30 @@ import { NavigateService } from '../services/navigate.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   pass: FormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
 
   message: string = '';
 
-  constructor(private userService: UserService, private navigateService: NavigateService) {}
-
   myForm: FormGroup = new FormGroup({
     email: this.email,
     pass: this.pass,
   });
+
+  constructor(private userService: UserService, private navigateService: NavigateService) {
+    if (this.userService.getUser().id == 0) return;
+
+    // ログイン済みの場合
+    this.navigateService.loggedInMove();
+  }
+
+  ngOnInit() {
+    if (this.userService.getUser().id == 0) return;
+
+    // ログイン済みの場合
+    this.navigateService.loggedInMove();
+  }
 
   onSubmit() {
     this.userService.loginWithResult(this.email.value, this.pass.value).subscribe({
@@ -28,8 +40,8 @@ export class LoginComponent {
         if (res.success) {
           console.log(res);
 
-          // ログインできたら最初のページに飛ばす
-          this.navigateService.toLogin();
+          // ログインできたら前のページに飛ばす
+          this.navigateService.toUndo();
         } else {
           console.log(res);
           this.message = res.message;
