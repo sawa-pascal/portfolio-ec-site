@@ -21,8 +21,17 @@ export class NavigateService {
     this.pushHistory('/');
   }
 
+  isInCurrentPage(route: string): boolean {
+    // 現在のページ（履歴の最後）からパス部分のみを比較する
+    const last = this.navigateHistory[this.navigateHistory.length - 1] || '';
+    // パス部分だけ（?以降, パラメータ, :id等を除く）を取得
+    const lastPath = last.split('?')[0].split(':')[0];
+    const comparePath = route.split('?')[0].split(':')[0];
+    return lastPath === comparePath;
+  }
+
   toTopPage(searchValue: string | null = null) {
-    if (searchValue == null) {
+    if (searchValue == null || searchValue == '') {
       this.pushHistory('/');
       this.router.navigate(['/']);
       return;
@@ -104,7 +113,7 @@ export class NavigateService {
     // 1つ前の履歴が「今戻りたいページ」
     const prev = this.navigateHistory[this.navigateHistory.length - 1];
     if (prev) {
-      console.log("redo : " + this.redoHistory);
+      console.log('redo : ' + this.redoHistory);
       this.moveType = MoveType.UNDO;
       this.navigateToRouteString(prev);
     }

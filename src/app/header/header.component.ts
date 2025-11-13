@@ -80,4 +80,29 @@ export class HeaderComponent {
   toCart() {
     this.navigateService.toCart();
   }
+
+  onClickedReturn() {
+    var isDetail = this.navigateService.isInCurrentPage('/product-detail');
+    var isCart = this.navigateService.isInCurrentPage('/cart');
+
+    if (isDetail) {
+      this.navigateService.toTopPage(this.itemName.value);
+      return;
+    }
+
+    if (isCart) {
+      this.navigateService.toUndo();
+
+      if (this.navigateService.isInCurrentPage('/purchase-confirm')){
+        this.navigateService.toUndo();
+        this.navigateService.toUndo();
+      }
+    }
+  }
+
+  isVisible(): boolean {
+    var isDetail = this.navigateService.isInCurrentPage('/product-detail');
+    var isCart = this.navigateService.isInCurrentPage('/cart');
+    return isDetail || isCart;
+  }
 }

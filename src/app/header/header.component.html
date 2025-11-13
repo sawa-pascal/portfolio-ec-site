@@ -4,6 +4,11 @@
   </a>
 
   <button class="button fancy-button" (click)="goTopPage()">トップ</button>
+
+  @if (isVisible()) {
+    <button class="button fancy-button" (click)="onClickedReturn()">戻る</button>
+  }
+
   <div class="search-items">
     <input [formControl]="itemName" placeholder="名前" />
     <button (click)="onClickedSearch()">検索</button>
