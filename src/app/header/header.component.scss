@@ -199,17 +199,23 @@ h1 {
 }
 
 // --- メディアクエリ ---
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
   h1 {
     font-size: $font-size-title * 0.909;
   }
   .fancy-button {
-    margin: 0px 10px;
+    margin: 0px 5px;
     font-size: $font-size-base;
   }
 
-  .search-items button{
-    line-height:1;
+  #top,
+  #return,
+  #cart {
+    padding: 4px;
+  }
+
+  .search-items button {
+    line-height: 1;
     padding: 0;
   }
 }

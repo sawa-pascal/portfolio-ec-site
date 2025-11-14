@@ -1,17 +1,17 @@
 <header>
   <a (click)="goTopPage()">
-    <h1>MY EC SITE</h1>
+    <h1>文房具オンラインS.A店</h1>
   </a>
 
-  <button class="button fancy-button" (click)="goTopPage()">トップ</button>
+  <button class="button fancy-button" id="top" (click)="goTopPage()">トップ</button>
 
   @if (isVisible()) {
-    <button class="button fancy-button" (click)="onClickedReturn()">戻る</button>
+    <button class="button fancy-button" id="return" (click)="onClickedReturn()">戻る</button>
   }
 
   <div class="search-items">
     <input [formControl]="itemName" placeholder="名前" />
-    <button (click)="onClickedSearch()">検索</button>
+    <button class="button fancy-button" id="search" (click)="onClickedSearch()">検索</button>
   </div>
 
   @if (getUserName() != '') {
@@ -27,8 +27,8 @@
     </label>
   </div>
   } @else {
-  <button class="button fancy-button" (click)="login()">ログイン</button>
+  <button class="button fancy-button" id="login" (click)="login()">ログイン</button>
   }
 
-  <button class="button fancy-button" (click)="toCart()">カート</button>
+  <button class="button fancy-button" id="cart" (click)="toCart()">カート</button>
 </header>
